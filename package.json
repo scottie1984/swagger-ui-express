@@ -1,0 +1,37 @@
+{
+  "name": "swagger-ui-express",
+  "version": "1.0.0",
+  "description": "Swagger UI Express",
+  "main": "./lib/index.js",
+  "files": [
+    "static",
+    "package.json",
+    "index.js",
+    "indexTemplate.html"
+  ],
+  "keywords": [
+	"swagger",
+	"express",
+	"ui",
+	"json",
+	"documentation"
+  ],
+  "private": false,
+  "engines": {
+    "node": ">= 4.2.0"
+  },
+  "author": {
+    "name": "Stephen Scott",
+	"email": "scottie1984@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:scottie1984/swagger-ui-express.git"
+  },
+  "license": "BSD-2-Clause",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/scottie1984/swagger-ui-express/issues"
+  },
+  "homepage": "https://github.com/scottie1984/swagger-ui-express"
+}
