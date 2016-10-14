@@ -18,9 +18,28 @@ const swaggerDocument = require('./swagger.json');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 ```
 
-Open http://<app_host>:<app_host>/api-docs in your browser to view the documentation.
+Open http://`<app_host>`:`<app_port>`/api-docs in your browser to view the documentation.
+
+If you want to set up routing based on the swagger document checkout [swagger-express-router](https://www.npmjs.com/package/swagger-express-router)
+
+## [swagger-jsdoc](https://www.npmjs.com/package/swagger-jsdoc)
+
+If you are using swagger-jsdoc simply pass the swaggerSpec into the setup function:
+
+```javascript
+// Initialize swagger-jsdoc -> returns validated swagger spec in json format
+const swaggerSpec = swaggerJSDoc(options);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+```
 
 ## Requirements
 
 * Node v4.2 or above
 * Express 4 or above
+
+## Testing
+
+Install phantom
+npm install
+npm test

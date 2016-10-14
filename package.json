@@ -1,6 +1,6 @@
 {
   "name": "swagger-ui-express",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Swagger UI Express",
   "main": "./lib/index.js",
   "files": [
@@ -9,20 +9,28 @@
     "index.js",
     "indexTemplate.html"
   ],
+  "scripts": {
+    "test": "./node_modules/.bin/mocha test/*"
+  },
   "keywords": [
-	"swagger",
-	"express",
-	"ui",
-	"json",
-	"documentation"
+		"swagger",
+		"express",
+		"ui",
+		"json",
+		"documentation"
   ],
   "private": false,
   "engines": {
     "node": ">= 4.2.0"
   },
+  "devDependencies": {
+		"mocha": "2.2.5",
+		"express": "4.12.2",
+		"phantom": "2.1.21"
+	},
   "author": {
     "name": "Stephen Scott",
-	"email": "scottie1984@gmail.com"
+		"email": "scottie1984@gmail.com"
   },
   "repository": {
     "type": "git",
