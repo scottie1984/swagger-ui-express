@@ -33,6 +33,17 @@ const swaggerSpec = swaggerJSDoc(options);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 ```
 
+By default the Swagger Explorer bar is hidden, to display it pass true as the second parameter to the setup function:
+
+```javascript
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, true));
+```
+
 ## Requirements
 
 * Node v4.2 or above
