@@ -2,6 +2,7 @@ var assert = require('assert');
 var app = require('./testapp/app');
 var http = require('http');
 var phantom = require('phantom');
+require('es6-shim');
 
 describe('integration', function() {
   var server;
@@ -11,9 +12,7 @@ describe('integration', function() {
   before(function(done) {
 		app.set('port', 3001);
 
-		server = http.createServer(app);
-
-		server.listen(app.get('port'), function() {
+		server = app.listen(app.get('port'), function() {
 			done();
 		});
 	});
@@ -24,37 +23,37 @@ describe('integration', function() {
 		phInstance.exit();
 	});
 
-	it('Get API Documentation hosted at /api-docs', function() {
-    return phantom.create()
-        .then(instance => {
-            phInstance = instance;
-            return instance.createPage();
-        })
-        .then(page => {
-            sitepage = page;
-            return page.open('http://localhost:3001/api-docs');
-        })
-        .then(status => sitepage.property('title'))
-        .then(content => {
-            assert.equal(content, 'Swagger UI');
-        })
-        .then(() => sitepage.evaluate(function() {
-        	return document.getElementById('resource_/test').innerHTML;
-				}))
-        .then(html => {
-            assert.ok(html);
-        })
-        .then(() => sitepage.evaluate(function() {
-					return document.getElementById('/test_index').innerHTML;
-				}))
-				.then(html => {
-						assert.ok(html);
-				})
-				.then(() => sitepage.evaluate(function() {
-					return document.getElementById('/test_impossible').innerHTML;
-				}))
-				.then(html => {
-						assert.ok(html);
-				});
+	it('should have API Documentation hosted at /api-docs', function(done) {
+    phantom.create()
+      .then(function(instance) {
+        phInstance = instance;
+        return instance.createPage();
+      })
+      .then(function(page) {
+        sitepage = page;
+        return page.open('http://localhost:3001/api-docs/#//test');
+      })
+      .then(function(status) {
+        setTimeout(function() {
+          assert.equal('success', status);
+          done();
+        }, 100);
+      });
+  });
+
+  it('should contain the expected elements on the page', function(done) {
+    sitepage.property('title')
+      .then(function(title) {
+        assert.equal('Swagger UI', title);
+        return sitepage.evaluate(function() {
+          return document.querySelector('#resource_\\/test').innerHTML;
+        });
+      })
+      .then(function(html) {
+        assert.ok(html);
+        assert.ok(html.indexOf('id="/test_index"'));
+        assert.ok(html.indexOf('id="/test_impossible"'));
+        done();
+      });
 	});
 });

@@ -46,7 +46,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, true));
 
 ## Requirements
 
-* Node v4.2 or above
+* Node v0.10.32 or above
 * Express 4 or above
 
 ## Testing
