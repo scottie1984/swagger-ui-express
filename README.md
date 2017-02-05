@@ -44,6 +44,21 @@ const swaggerDocument = require('./swagger.json');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, true));
 ```
 
+To pass custom options e.g. validatorUrl, to the SwaggerUi client pass an object as the third parameter:
+
+```javascript
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+var options = {
+	validatorUrl : null
+};
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, true, options));
+```
+
 ## Requirements
 
 * Node v0.10.32 or above
