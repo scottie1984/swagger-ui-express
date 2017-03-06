@@ -4,7 +4,15 @@ var swaggerUi = require('../../index');
 var swaggerDocument = require('./swagger.json');
 
 var options = {
-	validatorUrl : null
+	validatorUrl : null,
+	oauth: {
+	 clientId: "your-client-id1",
+	 clientSecret: "your-client-secret-if-required1",
+	 realm: "your-realms1",
+	 appName: "your-app-name1",
+	 scopeSeparator: ",",
+	 additionalQueryStringParams: {}
+ }
 };
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false, options));

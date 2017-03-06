@@ -48,7 +48,16 @@
       if(window.SwaggerTranslator) {
         window.SwaggerTranslator.translate();
       }
+      var customOptions = <% customOptions %>
       var spec1 = <% swaggerDoc %>
+      var oauthSettings = customOptions.oauth || {
+          clientId: "your-client-id",
+          clientSecret: "your-client-secret-if-required",
+          realm: "your-realms",
+          appName: "your-app-name",
+          scopeSeparator: ",",
+          additionalQueryStringParams: {}
+        };
       var swaggerOptions = {
         spec: spec1,
         url: url,
@@ -56,14 +65,7 @@
         supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
         onComplete: function(swaggerApi, swaggerUi){
           if(typeof initOAuth == "function") {
-            initOAuth({
-              clientId: "your-client-id",
-              clientSecret: "your-client-secret-if-required",
-              realm: "your-realms",
-              appName: "your-app-name",
-              scopeSeparator: ",",
-              additionalQueryStringParams: {}
-            });
+            initOAuth(oauthSettings);
           }
 
           if(window.SwaggerTranslator) {
@@ -79,10 +81,10 @@
         showRequestHeaders: false
       };
 
-      var customOptions = <% customOptions %>
       for (var attrname in customOptions) {
         swaggerOptions[attrname] = customOptions[attrname];
       }
+
       window.swaggerUi = new SwaggerUi(swaggerOptions);
 
       window.swaggerUi.load();
