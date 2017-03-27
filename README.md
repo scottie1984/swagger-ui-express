@@ -66,6 +66,25 @@ var options = {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, showExplorer, options));
 ```
 
+### Custom CSS styles
+
+To customize the style of the swagger page, you can pass custom CSS as the fourth parameter.
+
+E.g. to hide the swagger header:
+
+```javascript
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+var showExplorer = false;
+var options = {};
+var customCss = '#header { display: none }';
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, showExplorer, options, customCss));
+```
+
 ## Requirements
 
 * Node v0.10.32 or above
