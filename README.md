@@ -22,7 +22,7 @@ Open http://`<app_host>`:`<app_port>`/api-docs in your browser to view the docum
 
 If you want to set up routing based on the swagger document checkout [swagger-express-router](https://www.npmjs.com/package/swagger-express-router)
 
-## [swagger-jsdoc](https://www.npmjs.com/package/swagger-jsdoc)
+### [swagger-jsdoc](https://www.npmjs.com/package/swagger-jsdoc)
 
 If you are using swagger-jsdoc simply pass the swaggerSpec into the setup function:
 
@@ -33,6 +33,8 @@ const swaggerSpec = swaggerJSDoc(options);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 ```
 
+### Swagger Explorer
+
 By default the Swagger Explorer bar is hidden, to display it pass true as the second parameter to the setup function:
 
 ```javascript
@@ -41,8 +43,12 @@ const app = express();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, true));
+var showExplorer = true;
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, showExplorer));
 ```
+
+### Custom swagger options
 
 To pass custom options e.g. validatorUrl, to the SwaggerUi client pass an object as the third parameter:
 
@@ -52,11 +58,31 @@ const app = express();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
+var showExplorer = true;
 var options = {
 	validatorUrl : null
 };
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, true, options));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, showExplorer, options));
+```
+
+### Custom CSS styles
+
+To customize the style of the swagger page, you can pass custom CSS as the fourth parameter.
+
+E.g. to hide the swagger header:
+
+```javascript
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+var showExplorer = false;
+var options = {};
+var customCss = '#header { display: none }';
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, showExplorer, options, customCss));
 ```
 
 ## Requirements

@@ -9,8 +9,9 @@ var explorerHtml = '<form id="api_selector">'+
                         '<div class="input"><a id="explore" class="header__btn" href="#" data-sw-translate>Explore</a></div>' +
                       '</form>';
 
-var setup = function(swaggerDoc, explorer, options) {
+var setup = function(swaggerDoc, explorer, options, customCss) {
 	options = options || {};
+    customCss = customCss || '';
 	var html = fs.readFileSync(__dirname + '/indexTemplate.html');
     try {
     	fs.unlinkSync(__dirname + '/index.html');
@@ -21,7 +22,9 @@ var setup = function(swaggerDoc, explorer, options) {
     var explorerString = explorer ?  explorerHtml : '';
     var explorerHtmlWithSwagger = htmlWithSwaggerReplaced.replace('<% explorerString %>', explorerString);
     var indexHTML = explorerHtmlWithSwagger.replace('<% customOptions %>', JSON.stringify(options))
-    return function(req, res) { res.send(indexHTML) };
+    var htmlWithCustomCss  = indexHTML.replace('<% customCss %>', customCss); 
+    
+    return function(req, res) { res.send(htmlWithCustomCss) };
 };
 
 var serve = express.static(__dirname + '/static')
