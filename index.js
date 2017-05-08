@@ -27,14 +27,30 @@ var setup = function(swaggerDoc, explorer, options, customCss, customfavIcon) {
     var explorerString = explorer ?  explorerHtml : '';
     var favIconString = customfavIcon ? '<link rel="icon" href="' + customfavIcon + '" />' : favIconHtml;
     var explorerHtmlWithSwagger = htmlWithSwaggerReplaced.replace('<% explorerString %>', explorerString);
-    var indexHTML = explorerHtmlWithSwagger.replace('<% customOptions %>', JSON.stringify(options))
+    var indexHTML = explorerHtmlWithSwagger.replace('<% customOptions %>', stringify(options))
     var htmlWithCustomCss  = indexHTML.replace('<% customCss %>', customCss);
     var htmlWithFavIcon  = htmlWithCustomCss.replace('<% favIconString %>', favIconString);
     
     return function(req, res) { res.send(htmlWithFavIcon) };
 };
 
-var serve = express.static(__dirname + '/static')
+var serve = express.static(__dirname + '/static');
+
+var stringify = function(obj, prop) {
+  var placeholder = '____FUNCTIONPLACEHOLDER____';
+  var fns = [];
+  var json = JSON.stringify(obj, function(key, value) {
+    if (typeof value === 'function') {
+      fns.push(value);
+      return placeholder;
+    }
+    return value;
+  }, 2);
+  json = json.replace(new RegExp('"' + placeholder + '"', 'g'), function(_) {
+    return fns.shift();
+  });
+  return 'this["' + prop + '"] = ' + json + ';';
+};
 
 module.exports = {
 	setup: setup,
