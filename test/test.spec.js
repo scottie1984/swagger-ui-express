@@ -24,6 +24,7 @@ describe('integration', function() {
 	});
 
 	it('should have API Documentation hosted at /api-docs', function(done) {
+    this.timeout(5000);
     phantom.create()
       .then(function(instance) {
         phInstance = instance;
@@ -31,7 +32,7 @@ describe('integration', function() {
       })
       .then(function(page) {
         sitepage = page;
-        return page.open('http://localhost:3001/api-docs/#//test');
+        return page.open('http://localhost:3001/api-docs/');
       })
       .then(function(status) {
         setTimeout(function() {
@@ -42,17 +43,18 @@ describe('integration', function() {
   });
 
   it('should contain the expected elements on the page', function(done) {
+    this.timeout(5000);
     sitepage.property('title')
       .then(function(title) {
         assert.equal('Swagger UI', title);
         return sitepage.evaluate(function() {
-          return document.querySelector('#resource_\\/test').innerHTML;
+          return document.querySelector('.swagger-ui').innerHTML;
         });
       })
       .then(function(html) {
         assert.ok(html);
-        assert.ok(html.indexOf('id="/test_index"'));
-        assert.ok(html.indexOf('id="/test_impossible"'));
+        assert.notEqual(html.indexOf('id="operations,get-/,/test"'), -1);
+        assert.notEqual(html.indexOf('id="operations,get-/bar,/test"'), -1);
         done();
       });
 	});
