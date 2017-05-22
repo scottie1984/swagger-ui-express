@@ -23,7 +23,7 @@ var options = {
  }
 };
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false, options, ''));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false, options, '.swagger-ui .topbar { background-color: red }'));
 
 app.get('/', function(req, res) { res.json({ status: 'OK'}); });
 app.get('/bar', function(req, res) { res.json({ status: 'OKISH'}); });
