@@ -7,7 +7,7 @@
    },
    "produces": ["application/json"],
    "paths": {
-     "/": {
+     "/test": {
        "get": {
          "x-swagger-router-controller": "home",
          "operationId": "index",

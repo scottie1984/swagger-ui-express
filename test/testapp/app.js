@@ -20,12 +20,18 @@ var options = {
 	 appName: "your-app-name1",
 	 scopeSeparator: ",",
 	 additionalQueryStringParams: {}
- }
+ },
+ docExpansion: 'list'
 };
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false, options, '.swagger-ui .topbar { background-color: red }'));
-
-app.get('/', function(req, res) { res.json({ status: 'OK'}); });
+app.get('/test', function(req, res) { res.json({ status: 'OK'}); });
 app.get('/bar', function(req, res) { res.json({ status: 'OKISH'}); });
+
+app.use('/api-docs', swaggerUi.serve)
+app.get('/api-docs', swaggerUi.setup(swaggerDocument, false, options, '.swagger-ui .topbar { background-color: red }'));
+
+app.use(function(req, res) {
+    res.send(404, 'Page not found');
+});
 
 module.exports = app;
