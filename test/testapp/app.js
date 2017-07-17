@@ -6,6 +6,8 @@ var swaggerDocument = require('./swagger.json');
 app.use((req, res, next) => {
 	if (req.url === '/favicon.ico') {
 		res.sendFile(__dirname + '/favicon.ico');
+	} else if (req.url === '/swagger.json') {
+		res.sendFile(__dirname + '/swagger.json');
 	} else {
 		next();
 	}
