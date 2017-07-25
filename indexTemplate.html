@@ -97,6 +97,10 @@ window.onload = function() {
   }
   var ui = SwaggerUIBundle(swaggerOptions)
 
+  if (customOptions.oauth) {
+    ui.initOAuth(customOptions.oauth)
+  }
+
   window.ui = ui
 }
 </script>
