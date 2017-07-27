@@ -24,7 +24,7 @@ describe('integration', function() {
 	});
 
 	it('should have API Documentation hosted at /api-docs', function(done) {
-    this.timeout(5000);
+    this.timeout(30000);
     phantom.create()
       .then(function(instance) {
         phInstance = instance;
@@ -39,11 +39,13 @@ describe('integration', function() {
           assert.equal('success', status);
           done();
         }, 100);
+      })
+      .catch(function(err) {
+        done(err);
       });
   });
 
   it('should contain the expected elements on the page', function(done) {
-    this.timeout(5000);
     sitepage.property('title')
       .then(function(title) {
         assert.equal('Swagger UI', title);
@@ -53,9 +55,44 @@ describe('integration', function() {
       })
       .then(function(html) {
         assert.ok(html);
-        assert.notEqual(html.indexOf('id="operations,get-/,/test"'), -1);
-        assert.notEqual(html.indexOf('id="operations,get-/bar,/test"'), -1);
+        assert.notEqual(html.indexOf('id="operations-/test-index"'), -1);
+        assert.notEqual(html.indexOf('id="operations-/test-impossible"'), -1);
         done();
+      })
+      .catch(function(err) {
+        done(err);
       });
 	});
+
+  it('should have API Documentation hosted at /api-docs-from-url', function(done) {
+    sitepage.open('http://localhost:3001/api-docs-from-url/')
+      .then(function(status) {
+        setTimeout(function() {
+          assert.equal('success', status);
+          done();
+        }, 100);
+      })
+      .catch(function(err) {
+        done(err);
+      });
+  });
+
+  it('should contain the expected elements on the page', function(done) {
+    sitepage.property('title')
+      .then(function(title) {
+        assert.equal('Swagger UI', title);
+        return sitepage.evaluate(function() {
+          return document.querySelector('.swagger-ui').innerHTML;
+        });
+      })
+      .then(function(html) {
+        assert.ok(html);
+        assert.notEqual(html.indexOf('id="operations-/test-index"'), -1);
+        assert.notEqual(html.indexOf('id="operations-/test-impossible"'), -1);
+        done();
+      })
+      .catch(function(err) {
+        done(err);
+      });
+  });
 });

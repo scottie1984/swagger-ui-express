@@ -87,6 +87,21 @@ var customCss = '#header { display: none }';
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, showExplorer, options, customCss));
 ```
 
+### Load swagger from url
+
+To load your swagger from a url instead of injecting the document, pass `null` as the first parameter, and pass the relative or absolute URL as the sixth parameter.
+
+```javascript
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+
+const swaggerDocument = require('./swagger.json');
+
+app.static
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, null, null, null, null, 'http://petstore.swagger.io/v2/swagger.json'));
+```
+
 ## Requirements
 
 * Node v0.10.32 or above

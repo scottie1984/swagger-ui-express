@@ -7,7 +7,7 @@ var favIconHtml = '<link rel="icon" type="image/png" href="./favicon-32x32.png" 
                   '<link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />'
 
 
-var setup = function(swaggerDoc, explorer, options, customCss, customfavIcon) {
+var setup = function(swaggerDoc, explorer, options, customCss, customfavIcon, swaggerUrl) {
 	options = options || {};
   var explorerString = explorer ?  '' : '.swagger-ui .topbar .download-url-wrapper { display: none }';
     customCss = explorerString + ' ' + customCss || explorerString;
@@ -18,13 +18,14 @@ var setup = function(swaggerDoc, explorer, options, customCss, customfavIcon) {
     } catch (e) {
 
     }
-    var htmlWithSwaggerReplaced = html.toString().replace('<% swaggerDoc %>', JSON.stringify(swaggerDoc));
+    var htmlWithSwaggerReplaced = html.toString().replace('<% swaggerDoc %>', swaggerDoc ? JSON.stringify(swaggerDoc) : 'undefined');
     var favIconString = customfavIcon ? '<link rel="icon" href="' + customfavIcon + '" />' : favIconHtml;
     var indexHTML = htmlWithSwaggerReplaced.replace('<% customOptions %>', stringify(options))
     var htmlWithCustomCss  = indexHTML.replace('<% customCss %>', customCss);
     var htmlWithFavIcon  = htmlWithCustomCss.replace('<% favIconString %>', favIconString);
+    var htmlWithSwaggerUrl = htmlWithFavIcon.replace('<% swaggerUrl %>', swaggerUrl ? '"' + swaggerUrl + '"' : 'undefined')
 
-    return function(req, res) { res.send(htmlWithFavIcon) };
+    return function(req, res) { res.send(htmlWithSwaggerUrl) };
 };
 
 var serve = express.static(__dirname + '/static');
