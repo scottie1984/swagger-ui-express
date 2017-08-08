@@ -15,6 +15,7 @@ window.onload = function() {
     spec: spec1,
     url: url,
     dom_id: '#swagger-ui',
+    deepLinking: true,
     presets: [
       SwaggerUIBundle.presets.apis,
       SwaggerUIStandalonePreset
