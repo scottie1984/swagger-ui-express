@@ -18,14 +18,19 @@ var setup = function(swaggerDoc, explorer, options, customCss, customfavIcon, sw
     } catch (e) {
 
     }
-    var htmlWithSwaggerReplaced = html.toString().replace('<% swaggerDoc %>', swaggerDoc ? JSON.stringify(swaggerDoc) : 'undefined');
-    var favIconString = customfavIcon ? '<link rel="icon" href="' + customfavIcon + '" />' : favIconHtml;
-    var indexHTML = htmlWithSwaggerReplaced.replace('<% customOptions %>', stringify(options))
-    var htmlWithCustomCss  = indexHTML.replace('<% customCss %>', customCss);
-    var htmlWithFavIcon  = htmlWithCustomCss.replace('<% favIconString %>', favIconString);
-    var htmlWithSwaggerUrl = htmlWithFavIcon.replace('<% swaggerUrl %>', swaggerUrl ? '"' + swaggerUrl + '"' : 'undefined')
 
-    return function(req, res) { res.send(htmlWithSwaggerUrl) };
+    var favIconString = customfavIcon ? '<link rel="icon" href="' + customfavIcon + '" />' : favIconHtml;
+    var htmlWithCustomCss  = html.toString().replace('<% customCss %>', customCss);
+    var htmlWithFavIcon  = htmlWithCustomCss.replace('<% favIconString %>', favIconString);
+
+    var initOptions = {
+      swaggerDoc: swaggerDoc || undefined,
+      customOptions: options,
+      swaggerUrl: swaggerUrl || undefined
+    }
+    var htmlWithOptions = htmlWithFavIcon.replace('<% swaggerOptions %>', JSON.stringify(initOptions))
+
+    return function(req, res) { res.send(htmlWithOptions) };
 };
 
 var serve = express.static(__dirname + '/static');
