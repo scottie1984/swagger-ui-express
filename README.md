@@ -102,6 +102,23 @@ app.static
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, null, null, null, null, 'http://petstore.swagger.io/v2/swagger.json'));
 ```
 
+### Load swagger from yaml file
+
+To load your swagger specification yaml file you need to use a module able to convert yaml to json ; for instance `yamljs`.
+
+    npm install --save yamljs
+
+```javascript
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+```
+
+
 ## Requirements
 
 * Node v0.10.32 or above
