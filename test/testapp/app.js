@@ -23,7 +23,7 @@ var options = {
 	 scopeSeparator: ",",
 	 additionalQueryStringParams: {}
  },
- docExpansion: 'full'
+ docExpansion: 'none'
 };
 
 app.get('/test', function(req, res) { res.json({ status: 'OK'}); });
