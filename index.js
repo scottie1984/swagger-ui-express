@@ -7,11 +7,12 @@ var favIconHtml = '<link rel="icon" type="image/png" href="./favicon-32x32.png" 
                   '<link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />'
 
 
-var setup = function(swaggerDoc, explorer, options, customCss, customfavIcon, swaggerUrl) {
+var setup = function(swaggerDoc, explorer, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
 	options = options || {};
   var explorerString = explorer ?  '' : '.swagger-ui .topbar .download-url-wrapper { display: none }';
     customCss = explorerString + ' ' + customCss || explorerString;
     customfavIcon = customfavIcon || false;
+    customeSiteTitle = customeSiteTitle || 'Swagger UI';
 	var html = fs.readFileSync(__dirname + '/indexTemplate.html');
     try {
     	fs.unlinkSync(__dirname + '/index.html');
@@ -28,7 +29,7 @@ var setup = function(swaggerDoc, explorer, options, customCss, customfavIcon, sw
       customOptions: options,
       swaggerUrl: swaggerUrl || undefined
     }
-    var htmlWithOptions = htmlWithFavIcon.replace('<% swaggerOptions %>', JSON.stringify(initOptions))
+    var htmlWithOptions = htmlWithFavIcon.replace('<% swaggerOptions %>', JSON.stringify(initOptions)).replace('<% title %>', customeSiteTitle)
 
     return function(req, res) { res.send(htmlWithOptions) };
 };
