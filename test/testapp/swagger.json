@@ -12,7 +12,7 @@
          "x-swagger-router-controller": "home",
          "operationId": "index",
          "tags": ["/test"],
-         "description": "",
+         "description": "[Login 123](https://www.google.com)",
          "parameters": [],
          "responses": {}
        }
