@@ -35,6 +35,25 @@ app.get('/api-docs', swaggerUi.setup(swaggerDocument, false, options, '.swagger-
 app.use('/api-docs-from-url', swaggerUi.serve)
 app.get('/api-docs-from-url', swaggerUi.setup(null, false, options, '.swagger-ui .topbar { background-color: red }', null, '/swagger.json'));
 
+var swaggerUiOpts = {
+	explorer: false,
+	swaggerOptions: options,
+	customCss: '.swagger-ui .topbar { background-color: blue }'
+}
+
+app.use('/api-docs-using-object', swaggerUi.serve)
+app.get('/api-docs-using-object', swaggerUi.setup(swaggerDocument, swaggerUiOpts));
+
+var swaggerUiOpts2 = {
+	explorer: false,
+	swaggerOptions: options,
+	customCss: '.swagger-ui .topbar { background-color: pink }',
+	swaggerUrl: '/swagger.json'
+}
+
+app.use('/api-docs-from-url-using-object', swaggerUi.serve)
+app.get('/api-docs-from-url-using-object', swaggerUi.setup(null, swaggerUiOpts2));
+
 app.use(function(req, res) {
     res.send(404, 'Page not found');
 });

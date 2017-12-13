@@ -7,9 +7,21 @@ var favIconHtml = '<link rel="icon" type="image/png" href="./favicon-32x32.png" 
                   '<link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />'
 
 
-var setup = function(swaggerDoc, explorer, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
+var setup = function(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
+  var isExplorer
+  if (typeof opts === 'object') {
+    isExplorer = opts.explorer
+    options = opts.swaggerOptions
+    customCss = opts.customCss
+    customfavIcon = opts.customfavIcon
+    swaggerUrl = opts.swaggerUrl
+    customeSiteTitle = opts.customSiteTitle
+  } else {
+    //support legacy params based function
+    isExplorer = opts
+  }
 	options = options || {};
-  var explorerString = explorer ?  '' : '.swagger-ui .topbar .download-url-wrapper { display: none }';
+  var explorerString = isExplorer ?  '' : '.swagger-ui .topbar .download-url-wrapper { display: none }';
     customCss = explorerString + ' ' + customCss || explorerString;
     customfavIcon = customfavIcon || false;
     customeSiteTitle = customeSiteTitle || 'Swagger UI';

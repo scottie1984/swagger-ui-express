@@ -95,4 +95,36 @@ describe('integration', function() {
         done(err);
       });
   });
+
+  it('should have API Documentation hosted at /api-docs-using-object', function(done) {
+    sitepage.open('http://localhost:3001/api-docs-using-object/')
+      .then(function(status) {
+        setTimeout(function() {
+          assert.equal('success', status);
+          done();
+        }, 100);
+      })
+      .catch(function(err) {
+        done(err);
+      });
+  });
+
+  it('should contain the expected elements on the page for api-docs-using-object', function(done) {
+    sitepage.property('title')
+      .then(function(title) {
+        assert.equal('Swagger UI', title);
+        return sitepage.evaluate(function() {
+          return document.querySelector('.swagger-ui').innerHTML;
+        });
+      })
+      .then(function(html) {
+        assert.ok(html);
+        assert.notEqual(html.indexOf('id="operations-/test-index"'), -1);
+        assert.notEqual(html.indexOf('id="operations-/test-impossible"'), -1);
+        done();
+      })
+      .catch(function(err) {
+        done(err);
+      });
+  });
 });

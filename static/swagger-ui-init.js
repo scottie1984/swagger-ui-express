@@ -34,5 +34,9 @@ window.onload = function() {
     ui.initOAuth(customOptions.oauth)
   }
 
+  if (customOptions.authAction) {
+    ui.authActions.authorize(customOptions.authAction)
+  }
+
   window.ui = ui
 }
