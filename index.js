@@ -9,7 +9,7 @@ var favIconHtml = '<link rel="icon" type="image/png" href="./favicon-32x32.png" 
 
 var setup = function(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
   var isExplorer
-  if (typeof opts === 'object') {
+  if (opts && typeof opts === 'object') {
     isExplorer = opts.explorer
     options = opts.swaggerOptions
     customCss = opts.customCss
