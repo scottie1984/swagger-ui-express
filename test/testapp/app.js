@@ -48,7 +48,8 @@ var swaggerUiOpts2 = {
 	explorer: false,
 	swaggerOptions: options,
 	customCss: '.swagger-ui .topbar { background-color: pink }',
-	swaggerUrl: '/swagger.json'
+	swaggerUrl: '/swagger.json',
+	customJs: '/my-custom.js',
 }
 
 app.use('/api-docs-from-url-using-object', swaggerUi.serve)

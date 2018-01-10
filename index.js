@@ -37,7 +37,7 @@ var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swagg
     var favIconString = customfavIcon ? '<link rel="icon" href="' + customfavIcon + '" />' : favIconHtml;
     var htmlWithCustomCss = html.toString().replace('<% customCss %>', customCss);
     var htmlWithFavIcon = htmlWithCustomCss.replace('<% favIconString %>', favIconString);
-    var htmlWithCustomJs = htmlWithFavIcon.replace('<% customJs %>', options.customJs ? `<script src="${options.customJs}"></script>` : '');
+    var htmlWithCustomJs = htmlWithFavIcon.replace('<% customJs %>', customJs ? `<script src="${customJs}"></script>` : '');
 
     var initOptions = {
       swaggerDoc: swaggerDoc || undefined,
