@@ -3,29 +3,17 @@
   "version": "2.0.15",
   "description": "Swagger UI Express",
   "main": "./lib/index.js",
-  "files": [
-    "static",
-    "package.json",
-    "index.js",
-    "indexTemplate.html"
-  ],
+  "files": ["static", "package.json", "index.js", "indexTemplate.html"],
   "scripts": {
     "test": "./node_modules/.bin/mocha test/*"
   },
-  "keywords": [
-    "swagger",
-    "express",
-    "ui",
-    "json",
-    "documentation"
-  ],
+  "keywords": ["swagger", "ui", "json", "documentation"],
   "private": false,
   "engines": {
     "node": ">= v0.10.32"
   },
   "devDependencies": {
     "es6-shim": "0.35.2",
-    "express": "4.12.2",
     "mocha": "2.2.5",
     "phantom": "2.1.21"
   },
