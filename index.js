@@ -5,15 +5,7 @@ var fs = require('fs');
 var favIconHtml = '<link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />' +
   '<link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />';
 
-var setup = function (
-  swaggerDoc,
-  opts,
-  options,
-  customCss,
-  customfavIcon,
-  swaggerUrl,
-  customeSiteTitle
-) {
+var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
   var isExplorer;
   var customJs;
   if (opts && typeof opts === 'object') {
@@ -35,7 +27,7 @@ var setup = function (
   customeSiteTitle = customeSiteTitle || 'Swagger UI';
   var html = fs.readFileSync(__dirname + '/indexTemplate.html');
   try {
-    fs.unlinkSync(__dirname + '/index.htm');
+    fs.unlinkSync(__dirname + '/index.html');
   } catch (e) { }
 
   var favIconString = customfavIcon ? '<link rel="icon" href="' + customfavIcon + '" />' : favIconHtml;
@@ -69,7 +61,7 @@ var stringify = function (obj, prop) {
   return json + ';';
 };
 
-// Return function and path only. let caller decide how to deliver results.
+// Return function and path only. Let caller decide how to deliver results.
 // This allows package to be framework agnostic.
 module.exports = {
   setup: setup,
