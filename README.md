@@ -17,7 +17,10 @@ const app = express();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', express.static(swaggerUi.serve));
+app.get('/api-docs', function(req, res) {
+  res.send(swaggerUi.setup(swaggerDocument))
+});
 ```
 
 Open http://`<app_host>`:`<app_port>`/api-docs in your browser to view the documentation.
@@ -32,7 +35,10 @@ If you are using swagger-jsdoc simply pass the swaggerSpec into the setup functi
 // Initialize swagger-jsdoc -> returns validated swagger spec in json format
 const swaggerSpec = swaggerJSDoc(options);
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api-docs', express.static(swaggerUi.serve));
+app.get('/api-docs', function(req, res) {
+  res.send(swaggerUi.setup(swaggerSpec))
+});
 ```
 
 ### Swagger Explorer
@@ -49,7 +55,10 @@ var options = {
   explorer : true
 };
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+app.use('/api-docs', express.static(swaggerUi.serve));
+app.get('/api-docs', function(req, res) {
+  res.send(swaggerUi.setup(swaggerDocument, options))
+});
 ```
 
 ### Custom swagger options
@@ -68,7 +77,10 @@ var options = {
   }
 };
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+app.use('/api-docs', express.static(swaggerUi.serve));
+app.get('/api-docs', function(req, res) {
+  res.send(swaggerUi.setup(swaggerDocument, options))
+});
 ```
 
 ### Custom CSS styles
@@ -87,7 +99,10 @@ var options = {
   customCss: '#header { display: none }'
 };
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+app.use('/api-docs', express.static(swaggerUi.serve));
+app.get('/api-docs', function(req, res) {
+  res.send(swaggerUi.setup(swaggerDocument, options))
+});
 ```
 
 
@@ -105,7 +120,10 @@ var options = {
   customJs: '/custom.js'
 };
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+app.use('/api-docs', express.static(swaggerUi.serve));
+app.get('/api-docs', function(req, res) {
+  res.send(swaggerUi.setup(swaggerDocument, options))
+});
 ```
 
 ### Load swagger from url
@@ -123,7 +141,10 @@ var options = {
   swaggerUrl: 'http://petstore.swagger.io/v2/swagger.json'
 }
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, options));
+app.use('/api-docs', express.static(swaggerUi.serve));
+app.get('/api-docs', function(req, res) {
+  res.send(swaggerUi.setup(swaggerDocument, options))
+});
 ```
 
 ### Load swagger from yaml file
@@ -139,14 +160,33 @@ const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./swagger.yaml');
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', express.static(swaggerUi.serve));
+app.get('/api-docs', function(req, res) {
+  res.send(swaggerUi.setup(swaggerDocument, options))
+});
 ```
 
+
+### To Use With Koa
+```javascript
+const Koa = require("koa");
+const app = new Koa();
+const static = require("koa-static");
+const router = new require("koa-router")();
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require('./swagger.json');
+
+router.get("/api-docs", (ctx, next) => {
+  ctx.body = swaggerUi.setup(swaggerDocument);
+});
+app.use(router.routes());
+app.use(serve(swaggerUi.serve));
+```
 
 ## Requirements
 
 * Node v0.10.32 or above
-* Express 4 or above
+* Express 4 or above or Koa 2 or above
 
 ## Testing
 
