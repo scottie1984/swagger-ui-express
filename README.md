@@ -171,16 +171,16 @@ app.get('/api-docs', function(req, res) {
 ```javascript
 const Koa = require("koa");
 const app = new Koa();
-const static = require("koa-static");
+const koaStatic = require("koa-static");
 const router = new require("koa-router")();
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require('./swagger.json');
 
+app.use(koaStatic(swaggerUi.serve));
 router.get("/api-docs", (ctx, next) => {
   ctx.body = swaggerUi.setup(swaggerDocument);
 });
 app.use(router.routes());
-app.use(serve(swaggerUi.serve));
 ```
 
 ## Requirements
