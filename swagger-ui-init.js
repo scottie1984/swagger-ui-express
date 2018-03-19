@@ -7,7 +7,7 @@ window.onload = function() {
   } else {
     url = window.location.origin;
   }
-  var options = JSON.parse(document.getElementById('swagger-options').innerText)
+  <% swaggerOptions %>
   url = options.swaggerUrl || url
   var customOptions = options.customOptions
   var spec1 = options.swaggerDoc

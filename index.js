@@ -6,7 +6,7 @@ var express = require('express');
 var favIconHtml = '<link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />' +
                   '<link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />'
 
-
+var swaggerInit
 var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
   var isExplorer
   var customJs
@@ -44,12 +44,28 @@ var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swagg
       customOptions: options,
       swaggerUrl: swaggerUrl || undefined
     }
-    var htmlWithOptions = htmlWithCustomJs.replace('<% swaggerOptions %>', JSON.stringify(initOptions)).replace('<% title %>', customeSiteTitle)
+    var htmlWithOptions = htmlWithCustomJs.replace('<% title %>', customeSiteTitle)
 
-    return function (req, res) { res.send(htmlWithOptions) };
+
+    var js = fs.readFileSync(__dirname + '/swagger-ui-init.js');
+    swaggerInit = js.toString().replace('<% swaggerOptions %>', stringify(initOptions))
+
+    return function (req, res) {
+      console.log('req.url', req.url)
+      res.send(htmlWithOptions)
+    };
 };
 
-var serve = express.static(__dirname + '/static');
+function swaggerInit (req, res, next) {
+  console.log('req.url', req.url)
+  if (req.url === '/swagger-ui-init.js') {
+    res.send(swaggerInit)
+  } else {
+    next()
+  }
+}
+
+var serve = [swaggerInit, express.static(__dirname + '/static')];
 
 var stringify = function (obj, prop) {
   var placeholder = '____FUNCTIONPLACEHOLDER____';
@@ -64,7 +80,7 @@ var stringify = function (obj, prop) {
   json = json.replace(new RegExp('"' + placeholder + '"', 'g'), function (_) {
     return fns.shift();
   });
-  return json + ';';
+  return 'var options = ' + json + ';';
 };
 
 module.exports = {
