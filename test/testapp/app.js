@@ -26,7 +26,14 @@ var options = {
 	 additionalQueryStringParams: {}
  },
  docExpansion: 'full',
- operationsSorter: function (a, b) { return a < b }
+ operationsSorter: function (a, b) {
+	 var score = {
+		 '/test': 2,
+		 '/bar': 1
+	 }
+	 console.log('a', a.get("path"), b.get("path"))
+	 return score[a.get("path")] < score[b.get("path")]
+ }
 };
 
 app.post('/test', function(req, res) {

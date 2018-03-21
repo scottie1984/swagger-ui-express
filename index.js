@@ -6,7 +6,6 @@ var express = require('express');
 var favIconHtml = '<link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />' +
                   '<link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />'
 
-var swaggerInit
 var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
   var isExplorer
   var customJs
@@ -51,13 +50,11 @@ var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swagg
     swaggerInit = js.toString().replace('<% swaggerOptions %>', stringify(initOptions))
 
     return function (req, res) {
-      console.log('req.url', req.url)
       res.send(htmlWithOptions)
     };
 };
 
 function swaggerInit (req, res, next) {
-  console.log('req.url', req.url)
   if (req.url === '/swagger-ui-init.js') {
     res.send(swaggerInit)
   } else {
