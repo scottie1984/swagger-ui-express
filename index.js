@@ -6,6 +6,7 @@ var express = require('express');
 var favIconHtml = '<link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />' +
                   '<link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />'
 
+var swaggerInit
 var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
   var isExplorer
   var customJs
@@ -38,17 +39,21 @@ var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swagg
     var htmlWithFavIcon = htmlWithCustomCss.replace('<% favIconString %>', favIconString);
     var htmlWithCustomJs = htmlWithFavIcon.replace('<% customJs %>', customJs ? `<script src="${customJs}"></script>` : '');
 
+
+
     var initOptions = {
       swaggerDoc: swaggerDoc || undefined,
       customOptions: options,
       swaggerUrl: swaggerUrl || undefined
     }
-    var htmlWithOptions = htmlWithCustomJs.replace('<% swaggerOptions %>', JSON.stringify(initOptions)).replace('<% title %>', customeSiteTitle)
+    var js = fs.readFileSync(__dirname + '/swagger-ui-init.js');
+    swaggerInit = js.toString().replace('<% swaggerOptions %>', stringify(initOptions))
+    var htmlWithOptions = htmlWithCustomJs.replace('<% title %>', customeSiteTitle)
 
     return function (req, res) { res.send(htmlWithOptions) };
 };
 
-function swaggerInit (req, res, next) {
+function swaggerInitFn (req, res, next) {
   if (req.url === '/swagger-ui-init.js') {
     res.send(swaggerInit)
   } else {
@@ -56,8 +61,9 @@ function swaggerInit (req, res, next) {
   }
 }
 
-var serve = express.static(__dirname + '/static');
-var serveWithOptions = options => express.static(__dirname + '/static', options);
+
+var serve = [swaggerInitFn, express.static(__dirname + '/static')];
+var serveWithOptions = options => [swaggerInitFn, express.static(__dirname + '/static', options)];
 
 var stringify = function (obj, prop) {
   var placeholder = '____FUNCTIONPLACEHOLDER____';

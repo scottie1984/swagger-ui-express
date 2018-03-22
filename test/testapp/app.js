@@ -28,8 +28,8 @@ var options = {
  docExpansion: 'full',
  operationsSorter: function (a, b) {
 	 var score = {
-		 '/test': 2,
-		 '/bar': 1
+		 '/test': 1,
+		 '/bar': 2
 	 }
 	 console.log('a', a.get("path"), b.get("path"))
 	 return score[a.get("path")] < score[b.get("path")]

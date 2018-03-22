@@ -1,13 +1,14 @@
 {
   "name": "swagger-ui-express",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Swagger UI Express",
   "main": "./lib/index.js",
   "files": [
     "static",
     "package.json",
     "index.js",
-    "indexTemplate.html"
+    "indexTemplate.html",
+    "swagger-ui-init.js"
   ],
   "scripts": {
     "test": "./node_modules/.bin/mocha test/*"
