@@ -6,7 +6,6 @@ var express = require('express');
 var favIconHtml = '<link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />' +
                   '<link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />'
 
-
 var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
   var isExplorer
   var customJs
@@ -49,6 +48,14 @@ var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swagg
     return function (req, res) { res.send(htmlWithOptions) };
 };
 
+function swaggerInit (req, res, next) {
+  if (req.url === '/swagger-ui-init.js') {
+    res.send(swaggerInit)
+  } else {
+    next()
+  }
+}
+
 var serve = express.static(__dirname + '/static');
 
 var stringify = function (obj, prop) {
@@ -64,7 +71,7 @@ var stringify = function (obj, prop) {
   json = json.replace(new RegExp('"' + placeholder + '"', 'g'), function (_) {
     return fns.shift();
   });
-  return json + ';';
+  return 'var options = ' + json + ';';
 };
 
 module.exports = {

@@ -3,6 +3,8 @@ var app = express();
 var swaggerUi = require('../../index');
 var swaggerDocument = require('./swagger.json');
 
+var swaggerDocumentSplit = require('./swagger-split.json');
+
 app.use((req, res, next) => {
 	if (req.url === '/favicon.ico') {
 		res.sendFile(__dirname + '/favicon.ico');
@@ -23,10 +25,21 @@ var options = {
 	 scopeSeparator: ",",
 	 additionalQueryStringParams: {}
  },
- docExpansion: 'full'
+ docExpansion: 'full',
+ operationsSorter: function (a, b) {
+	 var score = {
+		 '/test': 2,
+		 '/bar': 1
+	 }
+	 console.log('a', a.get("path"), b.get("path"))
+	 return score[a.get("path")] < score[b.get("path")]
+ }
 };
 
-app.get('/test', function(req, res) { res.json({ status: 'OK'}); });
+app.post('/test', function(req, res) {
+	console.log('req', req)
+	res.json({ status: 'OK'});
+});
 app.get('/bar', function(req, res) { res.json({ status: 'OKISH'}); });
 
 app.use('/api-docs', swaggerUi.serve)
@@ -50,6 +63,7 @@ var swaggerUiOpts2 = {
 	customCss: '.swagger-ui .topbar { background-color: pink }',
 	swaggerUrl: '/swagger.json',
 	customJs: '/my-custom.js',
+	operationsSorter: 'alpha'
 }
 
 app.use('/api-docs-from-url-using-object', swaggerUi.serve)
@@ -57,6 +71,9 @@ app.get('/api-docs-from-url-using-object', swaggerUi.setup(null, swaggerUiOpts2)
 
 app.use('/api-docs-with-null', swaggerUi.serve)
 app.get('/api-docs-with-null', swaggerUi.setup(swaggerDocument, null, options, '.swagger-ui .topbar { background-color: orange }'));
+
+app.use('/api-docs-split', swaggerUi.serve)
+app.get('/api-docs-split', swaggerUi.setup(swaggerDocumentSplit, null, options, '.swagger-ui .topbar { background-color: orange }'));
 
 app.use(function(req, res) {
     res.send(404, 'Page not found');
