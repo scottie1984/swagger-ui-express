@@ -57,6 +57,7 @@ function swaggerInit (req, res, next) {
 }
 
 var serve = express.static(__dirname + '/static');
+var serveWithOptions = options => express.static(__dirname + '/static', options);
 
 var stringify = function (obj, prop) {
   var placeholder = '____FUNCTIONPLACEHOLDER____';
@@ -76,5 +77,6 @@ var stringify = function (obj, prop) {
 
 module.exports = {
 	setup: setup,
-	serve: serve
+	serve: serve,
+  serveWithOptions: serveWithOptions
 };

@@ -75,6 +75,9 @@ app.get('/api-docs-with-null', swaggerUi.setup(swaggerDocument, null, options, '
 app.use('/api-docs-split', swaggerUi.serve)
 app.get('/api-docs-split', swaggerUi.setup(swaggerDocumentSplit, null, options, '.swagger-ui .topbar { background-color: orange }'));
 
+app.use('/api-docs-with-opts/', swaggerUi.serveWithOptions({ redirect: false }))
+app.get('/api-docs-with-opts/', swaggerUi.setup(swaggerDocumentSplit, null, options, '.swagger-ui .topbar { background-color: orange }'));
+
 app.use(function(req, res) {
     res.send(404, 'Page not found');
 });
