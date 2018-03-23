@@ -55,6 +55,7 @@ var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swagg
 
 function swaggerInitFn (req, res, next) {
   if (req.url === '/swagger-ui-init.js') {
+    res.set('Content-Type', 'application/javascript')
     res.send(swaggerInit)
   } else {
     next()
