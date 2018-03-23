@@ -1,6 +1,6 @@
 {
   "name": "swagger-ui-express",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Swagger UI Express",
   "main": "./lib/index.js",
   "files": [
@@ -38,7 +38,7 @@
     "type": "git",
     "url": "git@github.com:scottie1984/swagger-ui-express.git"
   },
-  "license": "BSD-2-Clause",
+  "license": "MIT",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/scottie1984/swagger-ui-express/issues"
