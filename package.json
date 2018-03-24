@@ -1,6 +1,6 @@
 {
   "name": "swagger-ui-express",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "Swagger UI Express",
   "main": "./lib/index.js",
   "files": [
@@ -8,7 +8,8 @@
     "package.json",
     "index.js",
     "indexTemplate.html",
-    "swagger-ui-init.js"
+    "swagger-ui-init.js",
+    "LICENSE"
   ],
   "scripts": {
     "test": "./node_modules/.bin/mocha test/*"
