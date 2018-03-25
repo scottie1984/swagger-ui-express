@@ -39,8 +39,6 @@ var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swagg
     var htmlWithFavIcon = htmlWithCustomCss.replace('<% favIconString %>', favIconString);
     var htmlWithCustomJs = htmlWithFavIcon.replace('<% customJs %>', customJs ? `<script src="${customJs}"></script>` : '');
 
-
-
     var initOptions = {
       swaggerDoc: swaggerDoc || undefined,
       customOptions: options,
