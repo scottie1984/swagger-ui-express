@@ -7,7 +7,8 @@ var favIconHtml = '<link rel="icon" type="image/png" href="./favicon-32x32.png" 
                   '<link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />'
 
 var swaggerInit
-var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
+
+var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
   var isExplorer
   var customJs
   if (opts && typeof opts === 'object') {
@@ -46,8 +47,11 @@ var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swagg
     }
     var js = fs.readFileSync(__dirname + '/swagger-ui-init.js');
     swaggerInit = js.toString().replace('<% swaggerOptions %>', stringify(initOptions))
-    var htmlWithOptions = htmlWithCustomJs.replace('<% title %>', customeSiteTitle)
+    return htmlWithCustomJs.replace('<% title %>', customeSiteTitle)
+}
 
+var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
+    var htmlWithOptions = generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle)
     return function (req, res) { res.send(htmlWithOptions) };
 };
 
@@ -83,5 +87,6 @@ var stringify = function (obj, prop) {
 module.exports = {
 	setup: setup,
 	serve: serve,
-  serveWithOptions: serveWithOptions
+  serveWithOptions: serveWithOptions,
+  generateHTML: generateHTML
 };

@@ -5,6 +5,8 @@ var swaggerDocument = require('./swagger.json');
 
 var swaggerDocumentSplit = require('./swagger-split.json');
 
+var swaggerHtml = swaggerUi.generateHTML(swaggerDocument, false, options, '.swagger-ui .topbar { background-color: red }')
+
 app.use((req, res, next) => {
 	if (req.url === '/favicon.ico') {
 		res.sendFile(__dirname + '/favicon.ico');
@@ -77,6 +79,9 @@ app.get('/api-docs-split', swaggerUi.setup(swaggerDocumentSplit, null, options, 
 
 app.use('/api-docs-with-opts/', swaggerUi.serveWithOptions({ redirect: false }))
 app.get('/api-docs-with-opts/', swaggerUi.setup(swaggerDocumentSplit, null, options, '.swagger-ui .topbar { background-color: orange }'));
+
+app.use('/api-docs-html', swaggerUi.serve)
+app.get('/api-docs-html', (req, res) => { res.send(swaggerHtml) });
 
 app.use(function(req, res) {
     res.send(404, 'Page not found');
