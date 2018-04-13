@@ -64,6 +64,29 @@ function swaggerInitFn (req, res, next) {
   }
 }
 
+var swaggerInitFunction = function (swaggerDoc, opts) {
+  var js = fs.readFileSync(__dirname + '/swagger-ui-init.js');
+  var swaggerInitFile = js.toString().replace('<% swaggerOptions %>', stringify(opts))
+  return function (req, res, next) {
+    if (req.url === '/swagger-ui-init.js') {
+      res.set('Content-Type', 'application/javascript')
+      res.send(swaggerInitFile)
+    } else {
+      next()
+    }
+  }
+} 
+
+var serveFiles = function (swaggerDoc, opts) {
+  opts = opts || {}
+  var initOptions = {
+    swaggerDoc: swaggerDoc || undefined,
+    customOptions: opts.swaggerOptions || {},
+    swaggerUrl: opts.swaggerUrl || {}
+  }
+  var swaggerInitWithOpts = swaggerInitFunction(swaggerDoc, initOptions)
+  return [swaggerInitWithOpts, express.static(__dirname + '/static')]
+}
 
 var serve = [swaggerInitFn, express.static(__dirname + '/static')];
 var serveWithOptions = options => [swaggerInitFn, express.static(__dirname + '/static', options)];
@@ -88,5 +111,6 @@ module.exports = {
 	setup: setup,
 	serve: serve,
   serveWithOptions: serveWithOptions,
-  generateHTML: generateHTML
+  generateHTML: generateHTML,
+  serveFiles: serveFiles
 };
