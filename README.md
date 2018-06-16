@@ -2,7 +2,7 @@
 
 Adds middleware to your express app to serve the Swagger UI bound to your Swagger document. This acts as living documentation for your API hosted from within your app.
 
-Updated to Swagger 3.14.1
+Updated to Swagger 3.17.1
 
 ## Usage
 
