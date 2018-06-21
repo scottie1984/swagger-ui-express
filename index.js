@@ -81,10 +81,10 @@ var swaggerInitFunction = function (swaggerDoc, opts) {
 var swaggerAssetMiddleware = options => {
   var staticServer = express.static(swaggerUi.getAbsoluteFSPath(), options || {})
   return (req, res, next) => {
-    if(/\.(js|css|map|png|html)$/.test(req.path)) {
-      return staticServer(req, res, next)
-    } else {
+    if(/(\/|index\.html)$/.test(req.path)) {
       return next()
+    } else {
+      return staticServer(req, res, next)
     }
   }
 }
