@@ -2,6 +2,7 @@
 
 var fs = require('fs');
 var express = require('express');
+var swaggerUi = require('swagger-ui-dist')
 
 var favIconHtml = '<link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />' +
                   '<link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />'
@@ -75,7 +76,18 @@ var swaggerInitFunction = function (swaggerDoc, opts) {
       next()
     }
   }
-} 
+}
+
+var swaggerAssetMiddleware = options => {
+  var staticServer = express.static(swaggerUi.getAbsoluteFSPath(), options || {})
+  return (req, res, next) => {
+    if(/\.(js|css|map|png|html)$/.test(req.path)) {
+      return staticServer(req, res, next)
+    } else {
+      return next()
+    }
+  }
+}
 
 var serveFiles = function (swaggerDoc, opts) {
   opts = opts || {}
@@ -85,11 +97,11 @@ var serveFiles = function (swaggerDoc, opts) {
     swaggerUrl: opts.swaggerUrl || {}
   }
   var swaggerInitWithOpts = swaggerInitFunction(swaggerDoc, initOptions)
-  return [swaggerInitWithOpts, express.static(__dirname + '/static')]
+  return [swaggerInitWithOpts, swaggerAssetMiddleware()]
 }
 
-var serve = [swaggerInitFn, express.static(__dirname + '/static')];
-var serveWithOptions = options => [swaggerInitFn, express.static(__dirname + '/static', options)];
+var serve = [swaggerInitFn, swaggerAssetMiddleware()];
+var serveWithOptions = options => [swaggerInitFn, swaggerAssetMiddleware(options)];
 
 var stringify = function (obj, prop) {
   var placeholder = '____FUNCTIONPLACEHOLDER____';
