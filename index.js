@@ -50,9 +50,15 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
     return htmlWithCustomJs.replace('<% title %>', customeSiteTitle)
 }
 
+var replaceNonce = function(html, nonce) {
+  return html.replace('<% nonce %>', nonce || '').replace('<% nonce %>', nonce || '');
+}
+
 var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
-    var htmlWithOptions = generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle)
-    return function (req, res) { res.send(htmlWithOptions) };
+    var html = generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle)
+    return function (req, res) {
+      res.send(replaceNonce(html, res.locals.nonce));
+    };
 };
 
 function swaggerInitFn (req, res, next) {
@@ -111,6 +117,10 @@ module.exports = {
 	setup: setup,
 	serve: serve,
   serveWithOptions: serveWithOptions,
-  generateHTML: generateHTML,
+  generateHTML: function() {
+    var html = generateHTML.call(null, arguments);
+
+    return replaceNonce(html);
+  },
   serveFiles: serveFiles
 };
