@@ -90,6 +90,9 @@ var options = {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 ```
 
+### Avoiding unsafe-inline with Content-Security-Policy
+
+If you are using CSP and want to avoid adding 'unsafe-inline' to your 'style-src', you can specify a nonce to be used by setting `res.locals.nonce`, and adding the nonce to the CSP policy.
 
 ### Custom JS
 
