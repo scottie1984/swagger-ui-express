@@ -78,15 +78,14 @@ var swaggerInitFunction = function (swaggerDoc, opts) {
   }
 }
 
+function endsWith(origin, target) {
+  origin.substr(target.length * -1) === target
+}
+
 var swaggerAssetMiddleware = options => {
-  var staticServer = express.static(swaggerUi.getAbsoluteFSPath(), options || {})
-  return (req, res, next) => {
-    if(/(\/|index\.html)$/.test(req.path)) {
-      return next()
-    } else {
-      return staticServer(req, res, next)
-    }
-  }
+  var opts = options || {}
+  opts.index = false
+  return express.static(swaggerUi.getAbsoluteFSPath(), opts)
 }
 
 var serveFiles = function (swaggerDoc, opts) {
