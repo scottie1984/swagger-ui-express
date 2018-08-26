@@ -6,9 +6,11 @@ Swagger version is pulled from npm module swagger-ui-dist. Please use a lock fil
 
 ## Usage
 
-In app's `package.json`
+Install using npm:
 
-    "swagger-ui-express": "latest" // or desired version
+```bash
+$ npm install swagger-ui-express
+```
 
 Express setup `app.js`
 ```javascript
