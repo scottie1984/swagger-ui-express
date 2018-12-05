@@ -12,13 +12,15 @@ var swaggerInit
 var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
   var isExplorer
   var customJs
+  var swaggerUrls
   if (opts && typeof opts === 'object') {
-    isExplorer = opts.explorer
     options = opts.swaggerOptions
     customCss = opts.customCss
     customJs = opts.customJs
     customfavIcon = opts.customfavIcon
     swaggerUrl = opts.swaggerUrl
+    swaggerUrls = opts.swaggerUrls
+    isExplorer = opts.explorer || !!swaggerUrls
     customeSiteTitle = opts.customSiteTitle
   } else {
     //support legacy params based function
@@ -44,7 +46,8 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
     var initOptions = {
       swaggerDoc: swaggerDoc || undefined,
       customOptions: options,
-      swaggerUrl: swaggerUrl || undefined
+      swaggerUrl: swaggerUrl || undefined,
+      swaggerUrls: swaggerUrls || undefined
     }
     var js = fs.readFileSync(__dirname + '/swagger-ui-init.js');
     swaggerInit = js.toString().replace('<% swaggerOptions %>', stringify(initOptions))
@@ -93,7 +96,8 @@ var serveFiles = function (swaggerDoc, opts) {
   var initOptions = {
     swaggerDoc: swaggerDoc || undefined,
     customOptions: opts.swaggerOptions || {},
-    swaggerUrl: opts.swaggerUrl || {}
+    swaggerUrl: opts.swaggerUrl || {},
+    swaggerUrls: opts.swaggerUrls || undefined
   }
   var swaggerInitWithOpts = swaggerInitFunction(swaggerDoc, initOptions)
   return [swaggerInitWithOpts, swaggerAssetMiddleware()]
