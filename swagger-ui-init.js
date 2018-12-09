@@ -1,4 +1,3 @@
-
 window.onload = function() {
   // Build a system
   var url = window.location.search.match(/url=([^&]+)/);
@@ -9,11 +8,13 @@ window.onload = function() {
   }
   <% swaggerOptions %>
   url = options.swaggerUrl || url
+  var urls = options.swaggerUrls
   var customOptions = options.customOptions
   var spec1 = options.swaggerDoc
   var swaggerOptions = {
     spec: spec1,
     url: url,
+    urls: urls,
     dom_id: '#swagger-ui',
     deepLinking: true,
     presets: [
