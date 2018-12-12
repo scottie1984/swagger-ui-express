@@ -59,7 +59,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
 var options = {
-  explorer : true
+  explorer: true
 };
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
@@ -76,8 +76,8 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
 var options = {
-	swaggerOptions: {
-    validatorUrl : null
+  swaggerOptions: {
+    validatorUrl: null
   }
 };
 
@@ -103,10 +103,9 @@ var options = {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 ```
 
-
 ### Custom JS
 
-If you would like to have full control over your HTML you can  provide your own javascript file, value accepts absolute or relative path
+If you would like to have full control over your HTML you can provide your own javascript file, value accepts absolute or relative path
 
 ```javascript
 const express = require('express');
@@ -141,7 +140,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, options));
 
 ### Load swagger from yaml file
 
-To load your swagger specification yaml file you need to use a module able to convert yaml to json ; for instance `yamljs`.
+To load your swagger specification yaml file you need to use a module able to convert yaml to json; for instance `yamljs`.
 
     npm install --save yamljs
 
@@ -155,7 +154,6 @@ const swaggerDocument = YAML.load('./swagger.yaml');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 ```
 
-
 ## Requirements
 
 * Node v0.10.32 or above
@@ -163,6 +161,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 ## Testing
 
-Install phantom
-npm install
-npm test
+* Install phantom
+* `npm install`
+* `npm test`
