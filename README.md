@@ -129,8 +129,6 @@ const express = require('express');
 const app = express();
 const swaggerUi = require('swagger-ui-express');
 
-const swaggerDocument = require('./swagger.json');
-
 var options = {
   swaggerUrl: 'http://petstore.swagger.io/v2/swagger.json'
 }
