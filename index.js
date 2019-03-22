@@ -31,7 +31,7 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
     customCss = explorerString + ' ' + customCss || explorerString;
     customfavIcon = customfavIcon || false;
     customeSiteTitle = customeSiteTitle || 'Swagger UI';
-	var html = fs.readFileSync(__dirname + '/indexTemplate.html');
+	var html = fs.readFileSync(__dirname + '/indexTemplate.html.tpl');
     try {
     	fs.unlinkSync(__dirname + '/index.html');
     } catch (e) {
@@ -49,7 +49,7 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
       swaggerUrl: swaggerUrl || undefined,
       swaggerUrls: swaggerUrls || undefined
     }
-    var js = fs.readFileSync(__dirname + '/swagger-ui-init.js');
+    var js = fs.readFileSync(__dirname + '/swagger-ui-init.js.tpl');
     swaggerInit = js.toString().replace('<% swaggerOptions %>', stringify(initOptions))
     return htmlWithCustomJs.replace('<% title %>', customeSiteTitle)
 }
@@ -69,7 +69,7 @@ function swaggerInitFn (req, res, next) {
 }
 
 var swaggerInitFunction = function (swaggerDoc, opts) {
-  var js = fs.readFileSync(__dirname + '/swagger-ui-init.js');
+  var js = fs.readFileSync(__dirname + '/swagger-ui-init.js.tpl');
   var swaggerInitFile = js.toString().replace('<% swaggerOptions %>', stringify(opts))
   return function (req, res, next) {
     if (req.url === '/swagger-ui-init.js') {
