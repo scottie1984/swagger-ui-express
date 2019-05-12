@@ -6,8 +6,8 @@
   "files": [
     "package.json",
     "index.js",
-    "indexTemplate.html",
-    "swagger-ui-init.js",
+    "indexTemplate.html.tpl",
+    "swagger-ui-init.js.tpl",
     "LICENSE"
   ],
   "scripts": {
