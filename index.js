@@ -13,6 +13,7 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
   var isExplorer
   var customJs
   var swaggerUrls
+  var customCssUrl
   if (opts && typeof opts === 'object') {
     options = opts.swaggerOptions
     customCss = opts.customCss
@@ -21,7 +22,8 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
     swaggerUrl = opts.swaggerUrl
     swaggerUrls = opts.swaggerUrls
     isExplorer = opts.explorer || !!swaggerUrls
-    customeSiteTitle = opts.customSiteTitle
+    customeSiteTitle = opts.customSiteTitle,
+    customCssUrl = opts.customCssUrl
   } else {
     //support legacy params based function
     isExplorer = opts
@@ -42,6 +44,7 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
     var htmlWithCustomCss = html.toString().replace('<% customCss %>', customCss);
     var htmlWithFavIcon = htmlWithCustomCss.replace('<% favIconString %>', favIconString);
     var htmlWithCustomJs = htmlWithFavIcon.replace('<% customJs %>', customJs ? `<script src="${customJs}"></script>` : '');
+    var htmlWithCustomCssUrl = htmlWithCustomJs.replace('<% customCssUrl %>', customCssUrl ? `<link href="${customCssUrl}" rel="stylesheet">` : '');
 
     var initOptions = {
       swaggerDoc: swaggerDoc || undefined,
@@ -51,7 +54,7 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
     }
     var js = fs.readFileSync(__dirname + '/swagger-ui-init.js.tpl');
     swaggerInit = js.toString().replace('<% swaggerOptions %>', stringify(initOptions))
-    return htmlWithCustomJs.replace('<% title %>', customeSiteTitle)
+    return htmlWithCustomCssUrl.replace('<% title %>', customeSiteTitle)
 }
 
 var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {

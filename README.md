@@ -103,9 +103,26 @@ var options = {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 ```
 
+### Custom CSS styles from Url
+
+You can also pass the url to a custom css file, the value must be the public url of the file and can be relative or absolute to the swagger path.
+
+```javascript
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+var options = {
+  customCssUrl: '/custom.css'
+};
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+```
+
 ### Custom JS
 
-If you would like to have full control over your HTML you can provide your own javascript file, value accepts absolute or relative path
+If you would like to have full control over your HTML you can provide your own javascript file, value accepts absolute or relative path. Value must be the public url of the js file.
 
 ```javascript
 const express = require('express');

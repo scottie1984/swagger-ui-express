@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title><% title %></title>
+  <% customCssUrl %>
   <link rel="stylesheet" type="text/css" href="./swagger-ui.css" >
   <% favIconString %>
   <% customJs %>

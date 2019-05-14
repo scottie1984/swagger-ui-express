@@ -10,6 +10,8 @@ app.use((req, res, next) => {
 		res.sendFile(__dirname + '/favicon.ico');
 	} else if (req.url === '/swagger.json') {
 		res.sendFile(__dirname + '/swagger.json');
+	} else if (req.url === '/my-custom.css') {
+		res.sendFile(__dirname + '/my-custom.css');
 	} else {
 		next();
 	}
@@ -63,11 +65,15 @@ var swaggerUiOpts2 = {
 	customCss: '.swagger-ui .topbar { background-color: pink }',
 	swaggerUrl: '/swagger.json',
 	customJs: '/my-custom.js',
-	operationsSorter: 'alpha'
+	operationsSorter: 'alpha',
+	customCssUrl: '/my-custom.css'
 }
 
 app.use('/api-docs-from-url-using-object', swaggerUi.serve)
 app.get('/api-docs-from-url-using-object', swaggerUi.setup(null, swaggerUiOpts2));
+
+app.use('/api-docs-from-css-url', swaggerUi.serve)
+app.get('/api-docs-from-css-url', swaggerUi.setup(null, swaggerUiOpts2));
 
 app.use('/api-docs-with-null', swaggerUi.serve)
 app.get('/api-docs-with-null', swaggerUi.setup(swaggerDocument, null, options, '.swagger-ui .topbar { background-color: orange }'));
