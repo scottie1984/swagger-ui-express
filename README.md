@@ -153,6 +153,29 @@ var options = {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, options));
 ```
 
+To load multiple swagger documents from urls as a dropdown in the explorer bar, pass an array of object with `name` and `url` to 'swaggerUrls' property of the options to the setup function.
+
+```javascript
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+
+var options = {
+  swaggerUrls: [
+    {
+      url: 'http://petstore.swagger.io/v2/swagger.json',
+      name: 'Spec1'
+    },
+    {
+      url: 'http://petstore.swagger.io/v2/swagger.json',
+      name: 'Spec2'
+    }
+}
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, options));
+```
+
+
 ### Load swagger from yaml file
 
 To load your swagger specification yaml file you need to use a module able to convert yaml to json; for instance `yamljs`.
