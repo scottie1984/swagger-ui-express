@@ -165,6 +165,7 @@ const app = express();
 const swaggerUi = require('swagger-ui-express');
 
 var options = {
+  explorer: true,
   swaggerOptions: {
     urls: [
       {
