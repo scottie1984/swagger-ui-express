@@ -84,6 +84,8 @@ var options = {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 ```
 
+For all the available options, refer to [Swagger UI Configuration](https://github.com/swagger-api/swagger-ui/blob/master/docs/usage/configuration.md)
+
 ### Custom CSS styles
 
 To customize the style of the swagger page, you can pass custom CSS as the 'customCss' property of the options to the setup function.
@@ -139,7 +141,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options))
 
 ### Load swagger from url
 
-To load your swagger from a url instead of injecting the document, pass `null` as the first parameter, and pass the relative or absolute URL as the 'swaggerUrl' property of the options to the setup function.
+To load your swagger from a url instead of injecting the document, pass `null` as the first parameter, and pass the relative or absolute URL as the 'url' property to 'swaggerOptions' in the setup function.
 
 ```javascript
 const express = require('express');
@@ -147,11 +149,42 @@ const app = express();
 const swaggerUi = require('swagger-ui-express');
 
 var options = {
-  swaggerUrl: 'http://petstore.swagger.io/v2/swagger.json'
+  swaggerOptions: {
+    url: 'http://petstore.swagger.io/v2/swagger.json'
+  }
 }
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, options));
 ```
+
+To load multiple swagger documents from urls as a dropdown in the explorer bar, pass an array of object with `name` and `url` to 'urls' property to 'swaggerOptions' in the setup function.
+
+```javascript
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+
+var options = {
+  explorer: true,
+  swaggerOptions: {
+    urls: [
+      {
+        url: 'http://petstore.swagger.io/v2/swagger.json',
+        name: 'Spec1'
+      },
+      {
+        url: 'http://petstore.swagger.io/v2/swagger.json',
+        name: 'Spec2'
+      }
+    ]
+  }
+}
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, options));
+```
+
+Make sure 'explorer' option is set to 'true' in your setup options for the dropdown to be visible.
+
 
 ### Load swagger from yaml file
 
