@@ -7,7 +7,7 @@ Swagger version is pulled from npm module swagger-ui-dist. Please use a lock fil
 You may be also interested in:
 
 * [swagger-jsdoc](https://github.com/Surnet/swagger-jsdoc/blob/master/docs/GETTING-STARTED.md): Allows you to markup routes
-with jsdoc comments, then produces a swagger yml content dynamically, which you can then have this module consume. See below.
+with jsdoc comments. It then produces a full swagger yml config dynamically, which you can pass to this module to produce documentation. See below under the usage section for more info.
 * [swagger tools](https://github.com/swagger-api): Various tools, including swagger editor, swagger code gen etc.
 
 ## Usage
