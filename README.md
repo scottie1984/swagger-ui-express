@@ -1,8 +1,14 @@
 # Swagger UI Express
 
-Adds middleware to your express app to serve the Swagger UI bound to your Swagger document. This acts as living documentation for your API hosted from within your app.
+This module allows you to serve auto-generated API docs, based on a `swagger.json` file. The result is living documentation for your API hosted from your API server via a route.
 
 Swagger version is pulled from npm module swagger-ui-dist. Please use a lock file or specify the version of swagger-ui-dist you want to ensure it is consistent across environments.
+
+You may be also interested in:
+
+* [swagger-jsdoc](https://github.com/Surnet/swagger-jsdoc/blob/master/docs/GETTING-STARTED.md): Allows you to markup routes
+with jsdoc comments, then produces a swagger yml content dynamically, which you can then have this module consume. See below.
+* [swagger tools](https://github.com/swagger-api): Various tools, including swagger editor, swagger code gen etc.
 
 ## Usage
 
