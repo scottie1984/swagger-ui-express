@@ -1,6 +1,6 @@
 # Swagger UI Express
 
-This module allows you to serve auto-generated API docs from express, based on a `swagger.json` file. The result is living documentation for your API hosted from your API server via a route.
+This module allows you to serve auto-generated [swagger-ui](https://swagger.io/tools/swagger-ui/) generated API docs from express, based on a `swagger.json` file. The result is living documentation for your API hosted from your API server via a route.
 
 Swagger version is pulled from npm module swagger-ui-dist. Please use a lock file or specify the version of swagger-ui-dist you want to ensure it is consistent across environments.
 
