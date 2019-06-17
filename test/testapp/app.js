@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var swaggerUi = require('../../index');
+var swaggerUi = require('../../index')();
 var swaggerDocument = require('./swagger.json');
 
 var swaggerDocumentSplit = require('./swagger-split.json');
