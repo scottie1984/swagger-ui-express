@@ -2,7 +2,7 @@
   "name": "swagger-ui-express",
   "version": "4.0.6",
   "description": "Swagger UI Express",
-  "main": "./lib/index.js",
+  "main": "./index.js",
   "files": [
     "package.json",
     "index.js",
