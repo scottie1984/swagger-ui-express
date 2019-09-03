@@ -58,12 +58,16 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
 }
 
 var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
-    return function (req, res) {
-      swaggerDoc = swaggerDoc || req.swaggerDoc
-      res.send(
-        generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle)
-      )
-    };
+    if(!swaggerDoc){
+      return function (req, res) {
+        res.send(
+          generateHTML(req.swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle)
+        )
+      };
+    } else {
+      var htmlWithOptions = generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle)
+      return function (req, res) { res.send(htmlWithOptions) };
+    }
 };
 
 function swaggerInitFn (req, res, next) {
