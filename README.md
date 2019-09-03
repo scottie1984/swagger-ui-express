@@ -220,7 +220,7 @@ const swaggerUi = require('swagger-ui-express');
 app.use('/api-docs', function(req, res, next){
     const swaggerDocument = require('./swagger.json');
     swaggerDocument.host = req.get('host');
-    req.swaggerDocument = swaggerDocument;
+    req.swaggerDoc = swaggerDoc;
     next();
 }, swaggerUi.serve, swaggerUi.setup());
 ```
