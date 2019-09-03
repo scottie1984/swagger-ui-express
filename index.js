@@ -58,8 +58,12 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
 }
 
 var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
-    var htmlWithOptions = generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle)
-    return function (req, res) { res.send(htmlWithOptions) };
+    return function (req, res) {
+      swaggerDoc = swaggerDoc || req.swaggerDoc
+      res.send(
+        generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle)
+      )
+    };
 };
 
 function swaggerInitFn (req, res, next) {
