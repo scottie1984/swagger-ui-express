@@ -211,7 +211,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 ### Modify swagger file on the fly before load
 
-To dynamically set the host in the swagger file based on the incoming request object you may pass the json via the req object; just do not pass the the swagger json to the setup function.
+To dynamically set the host, or any other content, in the swagger file based on the incoming request object you may pass the json via the req object; to achieve this just do not pass the the swagger json to the setup function and it will look for `swaggerDoc` in the `req` object.
 
 ```javascript
 const express = require('express');
