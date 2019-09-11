@@ -208,6 +208,25 @@ const swaggerDocument = YAML.load('./swagger.yaml');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 ```
 
+
+### Modify swagger file on the fly before load
+
+To dynamically set the host, or any other content, in the swagger file based on the incoming request object you may pass the json via the req object; to achieve this just do not pass the the swagger json to the setup function and it will look for `swaggerDoc` in the `req` object.
+
+```javascript
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+app.use('/api-docs', function(req, res, next){
+    swaggerDocument.host = req.get('host');
+    req.swaggerDoc = swaggerDoc;
+    next();
+}, swaggerUi.serve, swaggerUi.setup());
+```
+
+
 ## Requirements
 
 * Node v0.10.32 or above
