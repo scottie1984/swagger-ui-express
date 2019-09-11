@@ -11,7 +11,7 @@ var favIconHtml = '<link rel="icon" type="image/png" href="./favicon-32x32.png" 
 
 var swaggerInit = ''
 
-var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle, htmlTplString, jsTplString) {
+var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle, _htmlTplString, _jsTplString) {
   var isExplorer
   var customJs
   var swaggerUrls
@@ -35,12 +35,11 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
   customCss = explorerString + ' ' + customCss || explorerString
   customfavIcon = customfavIcon || false
   customeSiteTitle = customeSiteTitle || 'Swagger UI'
-  fs.unlink(__dirname + '/index.html', function (err) {
-    console.error(err)
-  })
+  _htmlTplString = _htmlTplString || htmlTplString
+  _jsTplString = _jsTplString || jsTplString
 
   var favIconString = customfavIcon ? '<link rel="icon" href="' + customfavIcon + '" />' : favIconHtml
-  var htmlWithCustomCss = htmlTplString.toString().replace('<% customCss %>', customCss)
+  var htmlWithCustomCss = _htmlTplString.toString().replace('<% customCss %>', customCss)
   var htmlWithFavIcon = htmlWithCustomCss.replace('<% favIconString %>', favIconString)
   var htmlWithCustomJs = htmlWithFavIcon.replace('<% customJs %>', customJs ? `<script src="${customJs}"></script>` : '')
   var htmlWithCustomCssUrl = htmlWithCustomJs.replace('<% customCssUrl %>', customCssUrl ? `<link href="${customCssUrl}" rel="stylesheet">` : '')
@@ -52,14 +51,19 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
     swaggerUrls: swaggerUrls || undefined
   }
 
-  swaggerInit = jsTplString.toString().replace('<% swaggerOptions %>', stringify(initOptions))
+  swaggerInit = _jsTplString.toString().replace('<% swaggerOptions %>', stringify(initOptions))
   return htmlWithCustomCssUrl.replace('<% title %>', customeSiteTitle)
 }
 
 var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
-  var html = generateHTML(swaggerDoc || req.swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle, htmlTplString, jsTplString)
+  var html = generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle, htmlTplString, jsTplString)
   return function (req, res) {
-    res.send(html)
+    if (req.swaggerDoc) {
+      var reqHtml = generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle, htmlTplString, jsTplString)
+      res.send(reqHtml)
+    } else {
+      res.send(html)
+    }
   }
 }
 

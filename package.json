@@ -11,7 +11,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "./node_modules/.bin/mocha test/*"
+    "test": "./node_modules/.bin/mocha test/*",
+    "test-app": "node ./test/testapp/run.js "
   },
   "keywords": [
     "swagger",
