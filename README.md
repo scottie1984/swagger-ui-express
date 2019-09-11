@@ -217,8 +217,9 @@ To dynamically set the host, or any other content, in the swagger file based on 
 const express = require('express');
 const app = express();
 const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
 app.use('/api-docs', function(req, res, next){
-    const swaggerDocument = require('./swagger.json');
     swaggerDocument.host = req.get('host');
     req.swaggerDoc = swaggerDoc;
     next();

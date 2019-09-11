@@ -35,7 +35,7 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
   customCss = explorerString + ' ' + customCss || explorerString
   customfavIcon = customfavIcon || false
   customeSiteTitle = customeSiteTitle || 'Swagger UI'
-  fs.unlink(__dirname + '/index.html', function(err) {
+  fs.unlink(__dirname + '/index.html', function (err) {
     console.error(err)
   })
 
@@ -57,10 +57,9 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
 }
 
 var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
+  var html = generateHTML(swaggerDoc || req.swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle, htmlTplString, jsTplString)
   return function (req, res) {
-    res.send(
-      generateHTML(swaggerDoc || req.swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle, htmlTplString, jsTplString)
-    )
+    res.send(html)
   }
 }
 
