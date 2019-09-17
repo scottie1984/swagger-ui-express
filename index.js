@@ -59,7 +59,7 @@ var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swagg
   var html = generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle, htmlTplString, jsTplString)
   return function (req, res) {
     if (req.swaggerDoc) {
-      var reqHtml = generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle, htmlTplString, jsTplString)
+      var reqHtml = generateHTML(req.swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle, htmlTplString, jsTplString)
       res.send(reqHtml)
     } else {
       res.send(html)
