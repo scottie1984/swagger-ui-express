@@ -221,7 +221,7 @@ const swaggerDocument = require('./swagger.json');
 
 app.use('/api-docs', function(req, res, next){
     swaggerDocument.host = req.get('host');
-    req.swaggerDoc = swaggerDoc;
+    req.swaggerDoc = swaggerDocument;
     next();
 }, swaggerUi.serve, swaggerUi.setup());
 ```
