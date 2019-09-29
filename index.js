@@ -3,8 +3,8 @@
 var fs = require('fs')
 var express = require('express')
 var swaggerUi = require('swagger-ui-dist')
-var htmlTplString = fs.readFileSync(__dirname + '/indexTemplate.html.tpl')
-var jsTplString = fs.readFileSync(__dirname + '/swagger-ui-init.js.tpl')
+var htmlTplString = require('./indexTemplate.html.tpl.js')
+var jsTplString = require('./swagger-ui-init.js.tpl.js')
 
 var favIconHtml = '<link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />' +
   '<link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />'

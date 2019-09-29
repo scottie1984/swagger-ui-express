@@ -1,3 +1,4 @@
+module.exports = `
 window.onload = function() {
   // Build a system
   var url = window.location.search.match(/url=([^&]+)/);
@@ -41,3 +42,4 @@ window.onload = function() {
 
   window.ui = ui
 }
+`
