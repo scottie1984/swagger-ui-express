@@ -1,6 +1,5 @@
 'use strict'
 
-var fs = require('fs')
 var express = require('express')
 var swaggerUi = require('swagger-ui-dist')
 var favIconHtml = '<link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />' +
