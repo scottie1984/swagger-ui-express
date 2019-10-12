@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "es6-shim": "0.35.2",
+    "express": "4.12.2",
     "mocha": "2.2.5",
     "phantom": "2.1.21"
   },
@@ -48,6 +49,6 @@
     "swagger-ui-dist": "^3.18.1"
   },
   "peerDependencies": {
-    "express": ">=4.12.2"
+    "express": ">=4.0.0"
   }
 }
