@@ -27,7 +27,6 @@
   },
   "devDependencies": {
     "es6-shim": "0.35.2",
-    "express": "4.12.2",
     "mocha": "2.2.5",
     "phantom": "2.1.21"
   },
@@ -47,5 +46,8 @@
   "homepage": "https://github.com/scottie1984/swagger-ui-express",
   "dependencies": {
     "swagger-ui-dist": "^3.18.1"
+  },
+  "peerDependencies": {
+    "express": ">=4.12.2"
   }
 }
