@@ -133,7 +133,7 @@ window.onload = function() {
 }
 `
 
-var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle, _htmlTplString, _jsTplString) {
+var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customSiteTitle, _htmlTplString, _jsTplString) {
   var isExplorer
   var customJs
   var swaggerUrls
@@ -146,7 +146,7 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
     swaggerUrl = opts.swaggerUrl
     swaggerUrls = opts.swaggerUrls
     isExplorer = opts.explorer || !!swaggerUrls
-    customeSiteTitle = opts.customSiteTitle
+    customSiteTitle = opts.customSiteTitle
     customCssUrl = opts.customCssUrl
   } else {
     //support legacy params based function
@@ -156,7 +156,7 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
   var explorerString = isExplorer ? '' : '.swagger-ui .topbar .download-url-wrapper { display: none }'
   customCss = explorerString + ' ' + customCss || explorerString
   customfavIcon = customfavIcon || false
-  customeSiteTitle = customeSiteTitle || 'Swagger UI'
+  customSiteTitle = customSiteTitle || 'Swagger UI'
   _htmlTplString = _htmlTplString || htmlTplString
   _jsTplString = _jsTplString || jsTplString
 
@@ -174,14 +174,14 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
   }
 
   swaggerInit = _jsTplString.toString().replace('<% swaggerOptions %>', stringify(initOptions))
-  return htmlWithCustomCssUrl.replace('<% title %>', customeSiteTitle)
+  return htmlWithCustomCssUrl.replace('<% title %>', customSiteTitle)
 }
 
-var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle) {
-  var html = generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle, htmlTplString, jsTplString)
+var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customSiteTitle) {
+  var html = generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customSiteTitle, htmlTplString, jsTplString)
   return function (req, res) {
     if (req.swaggerDoc) {
-      var reqHtml = generateHTML(req.swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customeSiteTitle, htmlTplString, jsTplString)
+      var reqHtml = generateHTML(req.swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customSiteTitle, htmlTplString, jsTplString)
       res.send(reqHtml)
     } else {
       res.send(html)
