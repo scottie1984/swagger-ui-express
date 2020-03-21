@@ -178,19 +178,21 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
 }
 
 var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customSiteTitle) {
-  var html = generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customSiteTitle, htmlTplString, jsTplString)
   return function (req, res) {
     if (req.swaggerDoc) {
       var reqHtml = generateHTML(req.swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customSiteTitle, htmlTplString, jsTplString)
       res.send(reqHtml)
     } else {
+      var html = generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customSiteTitle, htmlTplString, jsTplString)
       res.send(html)
     }
   }
 }
 
 function swaggerInitFn(req, res, next) {
-  if (req.url === '/swagger-ui-init.js') {
+  if (req.url === '/package.json') {
+    res.sendStatus(404)
+  } else if (req.url === '/swagger-ui-init.js') {
     res.set('Content-Type', 'application/javascript')
     res.send(swaggerInit)
   } else {
@@ -201,7 +203,9 @@ function swaggerInitFn(req, res, next) {
 var swaggerInitFunction = function (swaggerDoc, opts) {
   var swaggerInitFile = jsTplString.toString().replace('<% swaggerOptions %>', stringify(opts))
   return function (req, res, next) {
-    if (req.url === '/swagger-ui-init.js') {
+    if (req.url === '/package.json') {
+      res.sendStatus(404)
+    } else if (req.url === '/swagger-ui-init.js') {
       res.set('Content-Type', 'application/javascript')
       res.send(swaggerInitFile)
     } else {

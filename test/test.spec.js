@@ -159,4 +159,16 @@ describe('integration', function() {
         done(err);
       });
   });
+
+  it('should not leak package.json', function(done) {
+    sitepage.open('http://localhost:3001/api-docs/package.json')
+      .then(() => sitepage.evaluate(function () { return document.querySelector('body').innerText }))
+      .then(body => {
+        assert.equal('Not Found', body);
+        done()
+      })
+      .catch(function(err) {
+        done(err);
+      });
+  });
 });
