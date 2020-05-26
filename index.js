@@ -4,7 +4,6 @@ var express = require('express')
 var swaggerUi = require('swagger-ui-dist')
 var favIconHtml = '<link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />' +
   '<link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />'
-var swaggerInit = ''
 
 var htmlTplString = `
 <!-- HTML for static distribution bundle build -->
@@ -77,7 +76,9 @@ var htmlTplString = `
 
 <script src="./swagger-ui-bundle.js"> </script>
 <script src="./swagger-ui-standalone-preset.js"> </script>
-<script src="./swagger-ui-init.js"> </script>
+<script>
+    <% swaggerInit %>
+</script>
 <% customCssUrl %>
 <style>
   <% customCss %>
@@ -173,8 +174,8 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
     swaggerUrls: swaggerUrls || undefined
   }
 
-  swaggerInit = _jsTplString.toString().replace('<% swaggerOptions %>', stringify(initOptions))
-  return htmlWithCustomCssUrl.replace('<% title %>', customSiteTitle)
+  var swaggerInit = _jsTplString.toString().replace('<% swaggerOptions %>', stringify(initOptions))
+  return htmlWithCustomCssUrl.replace('<% title %>', customSiteTitle).replace('<% swaggerInit %>', swaggerInit)
 }
 
 var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customSiteTitle) {
@@ -186,17 +187,6 @@ var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swagg
       var html = generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customSiteTitle, htmlTplString, jsTplString)
       res.send(html)
     }
-  }
-}
-
-function swaggerInitFn(req, res, next) {
-  if (req.url === '/package.json') {
-    res.sendStatus(404)
-  } else if (req.url === '/swagger-ui-init.js') {
-    res.set('Content-Type', 'application/javascript')
-    res.send(swaggerInit)
-  } else {
-    next()
   }
 }
 
@@ -217,7 +207,13 @@ var swaggerInitFunction = function (swaggerDoc, opts) {
 var swaggerAssetMiddleware = options => {
   var opts = options || {}
   opts.index = false
-  return express.static(swaggerUi.getAbsoluteFSPath(), opts)
+
+  return function (req, res, next) {
+    if (req.url === '/package.json') {
+      return res.sendStatus(404)
+    }
+    express.static(swaggerUi.getAbsoluteFSPath(), opts)(req, res, next)
+  }
 }
 
 var serveFiles = function (swaggerDoc, opts) {
@@ -232,8 +228,8 @@ var serveFiles = function (swaggerDoc, opts) {
   return [swaggerInitWithOpts, swaggerAssetMiddleware()]
 }
 
-var serve = [swaggerInitFn, swaggerAssetMiddleware()]
-var serveWithOptions = options => [swaggerInitFn, swaggerAssetMiddleware(options)]
+var serve = [swaggerAssetMiddleware()]
+var serveWithOptions = options => [swaggerAssetMiddleware(options)]
 
 var stringify = function (obj, prop) {
   var placeholder = '____FUNCTIONPLACEHOLDER____'
