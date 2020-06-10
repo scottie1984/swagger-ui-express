@@ -229,11 +229,10 @@ app.use('/api-docs', function(req, res, next){
 
 ## Requirements
 
-* Node v0.10.32 or above
+* Node 7.6 or above
 * Express 4 or above
 
 ## Testing
 
-* Install phantom
 * `npm install`
 * `npm test`
