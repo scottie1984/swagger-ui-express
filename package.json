@@ -1,7 +1,7 @@
 {
-  "name": "swagger-ui-express",
-  "version": "4.1.4",
-  "description": "Swagger UI Express",
+  "name": "swagger-ui-express-updated",
+  "version": "4.1.7",
+  "description": "Swagger UI Express: updated packages",
   "main": "./index.js",
   "files": [
     "package.json",
@@ -28,27 +28,27 @@
   "devDependencies": {
     "es6-shim": "0.35.2",
     "express": "4.12.2",
-    "mocha": "2.2.5",
-    "phantom": "2.1.21"
+    "mocha": "8.2.0",
+    "puppeteer": "5.3.1"
   },
   "author": {
-    "name": "Stephen Scott",
-    "email": "scottie1984@gmail.com"
+    "name": "Tanmoy Bhattacharjee",
+    "email": "engg.tanmoy@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:scottie1984/swagger-ui-express.git"
+    "url": "git@github.com:tanmoy-git/swagger-ui-express.git"
   },
   "license": "MIT",
   "readmeFilename": "README.md",
   "bugs": {
-    "url": "https://github.com/scottie1984/swagger-ui-express/issues"
+    "url": "https://github.com/tanmoy-git/swagger-ui-express/issues"
   },
-  "homepage": "https://github.com/scottie1984/swagger-ui-express",
+  "homepage": "https://github.com/tanmoy-git/swagger-ui-express",
   "dependencies": {
     "swagger-ui-dist": "^3.35.2"
   },
   "peerDependencies": {
-    "express": ">=4.0.0"
+    "express": "4.17.1"
   }
 }
