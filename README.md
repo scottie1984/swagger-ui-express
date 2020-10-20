@@ -1,4 +1,6 @@
-# Swagger UI Express
+This is a clone of the original repository: https://github.com/scottie1984/swagger-ui-express
+But as the packages are not often updated I am checking in this updated set of packages to help the developer community.
+# Swagger UI Express (Updated packages)
 
 This module allows you to serve auto-generated [swagger-ui](https://swagger.io/tools/swagger-ui/) generated API docs from express, based on a `swagger.json` file. The result is living documentation for your API hosted from your API server via a route.
 
@@ -229,7 +231,7 @@ app.use('/api-docs', function(req, res, next){
 
 ## Requirements
 
-* Node v0.10.32 or above
+* Node 8 or above
 * Express 4 or above
 
 ## Testing
