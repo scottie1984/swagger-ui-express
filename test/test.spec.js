@@ -1,174 +1,92 @@
-var assert = require('assert');
-var app = require('./testapp/app');
-var http = require('http');
-var phantom = require('phantom');
+const assert = require('assert');
+const app = require('./testapp/app');
+const puppeteer = require('puppeteer');
 require('es6-shim');
 
 describe('integration', function() {
   var server;
+	var browser = null;
   var sitepage = null;
-	var phInstance = null;
 
   before(function(done) {
 		app.set('port', 3001);
-
 		server = app.listen(app.get('port'), function() {
 			done();
 		});
 	});
 
-  after(function() {
+  after(async function() {
 		server.close();
-		sitepage.close();
-		phInstance.exit();
+		await sitepage.close();
+		await browser.close();
 	});
 
-	it('should have API Documentation hosted at /api-docs', function(done) {
+	it('should intialize browser', async function() {
     this.timeout(30000);
-    phantom.create()
-      .then(function(instance) {
-        phInstance = instance;
-        return instance.createPage();
-      })
-      .then(function(page) {
-        sitepage = page;
-        return page.open('http://localhost:3001/api-docs/');
-      })
-      .then(function(status) {
-        setTimeout(function() {
-          assert.equal('success', status);
-          done();
-        }, 100);
-      })
-      .catch(function(err) {
-        done(err);
-      });
+    browser = await puppeteer.launch();
+    sitepage = await browser.newPage();
   });
 
-  it('should contain the expected elements on the page', function(done) {
-    sitepage.property('title')
-      .then(function(title) {
-        assert.equal('Swagger UI', title);
-        return sitepage.evaluate(function() {
-          return document.querySelector('.swagger-ui').innerHTML;
-        });
-      })
-      .then(function(html) {
-        assert.ok(html);
-        assert.notEqual(html.indexOf('id="operations-/test-index"'), -1);
-        assert.notEqual(html.indexOf('id="operations-/test-impossible"'), -1);
-        done();
-      })
-      .catch(function(err) {
-        done(err);
-      });
+	it('should have API Documentation hosted at /api-docs', async function() {
+    const httpResponse = await sitepage.goto('http://localhost:3001/api-docs/');
+    assert.ok(httpResponse.ok());
+  });
+
+  it('should contain the expected elements on the page from /api-docs', async function() {
+    await sitepage.waitForSelector('.information-container', { timeout: 2000 });
+    assert.equal('Swagger UI', await sitepage.title());
+    const html = await sitepage.evaluate(() => document.querySelector('.swagger-ui').innerHTML);
+    assert.ok(html);
+    assert.notEqual(html.indexOf("id=\"operations-\\/test-index\""), -1);
+    assert.notEqual(html.indexOf("id=\"operations-\\/test-impossible\""), -1);
 	});
 
-  it('should have API Documentation hosted at /api-docs-from-url', function(done) {
-    sitepage.open('http://localhost:3001/api-docs-from-url/')
-      .then(function(status) {
-        setTimeout(function() {
-          assert.equal('success', status);
-          done();
-        }, 100);
-      })
-      .catch(function(err) {
-        done(err);
-      });
+  it('should have API Documentation hosted at /api-docs-from-url', async function() {
+    const httpResponse = await sitepage.goto('http://localhost:3001/api-docs-from-url/');
+    assert.ok(httpResponse.ok());
   });
 
-  it('should contain the expected elements on the page', function(done) {
-    sitepage.property('title')
-      .then(function(title) {
-        assert.equal('Swagger UI', title);
-        return sitepage.evaluate(function() {
-          return document.querySelector('.swagger-ui').innerHTML;
-        });
-      })
-      .then(function(html) {
-        assert.ok(html);
-        assert.notEqual(html.indexOf('id="operations-/test-index"'), -1);
-        assert.notEqual(html.indexOf('id="operations-/test-impossible"'), -1);
-        done();
-      })
-      .catch(function(err) {
-        done(err);
-      });
+  it('should contain the expected elements on the page from /api-docs-from-url', async function() {
+    await sitepage.waitForSelector('.information-container', { timeout: 2000 });
+    assert.equal('Swagger UI', await sitepage.title());
+    const html = await sitepage.evaluate(() => document.querySelector('.swagger-ui').innerHTML);
+    assert.ok(html);
+// console.log(`**** ${html}`);
+    assert.notEqual(html.indexOf("id=\"operations-\\/test-index\""), -1);
+    assert.notEqual(html.indexOf("id=\"operations-\\/test-impossible\""), -1);
   });
 
-  it('should have API Documentation hosted at /api-docs-using-object', function(done) {
-    sitepage.open('http://localhost:3001/api-docs-using-object/')
-      .then(function(status) {
-        setTimeout(function() {
-          assert.equal('success', status);
-          done();
-        }, 100);
-      })
-      .catch(function(err) {
-        done(err);
-      });
+  it('should have API Documentation hosted at /api-docs-using-object', async function() {
+    const httpResponse = await sitepage.goto('http://localhost:3001/api-docs-using-object/');
+    assert.ok(httpResponse.ok());
   });
 
-  it('should contain the expected elements on the page for api-docs-using-object', function(done) {
-    sitepage.property('title')
-      .then(function(title) {
-        assert.equal('Swagger UI', title);
-        return sitepage.evaluate(function() {
-          return document.querySelector('.swagger-ui').innerHTML;
-        });
-      })
-      .then(function(html) {
-        assert.ok(html);
-        assert.notEqual(html.indexOf('id="operations-/test-index"'), -1);
-        assert.notEqual(html.indexOf('id="operations-/test-impossible"'), -1);
-        done();
-      })
-      .catch(function(err) {
-        done(err);
-      });
+  it('should contain the expected elements on the page for api-docs-using-object', async function() {
+    await sitepage.waitForSelector('.information-container', { timeout: 2000 });
+    assert.equal('Swagger UI', await sitepage.title());
+    const html = await sitepage.evaluate(() => document.querySelector('.swagger-ui').innerHTML);
+    assert.ok(html);
+    assert.notEqual(html.indexOf("id=\"operations-\\/test-index\""), -1);
+    assert.notEqual(html.indexOf("id=\"operations-\\/test-impossible\""), -1);
   });
 
-  it('should have API Documentation hosted at /api-docs-with-null', function(done) {
-    sitepage.open('http://localhost:3001/api-docs-with-null/')
-      .then(function(status) {
-        setTimeout(function() {
-          assert.equal('success', status);
-          done();
-        }, 100);
-      })
-      .catch(function(err) {
-        done(err);
-      });
+  it('should have API Documentation hosted at /api-docs-with-null', async function() {
+    const httpResponse = await sitepage.goto('http://localhost:3001/api-docs-with-null/');
+    assert.ok(httpResponse.ok());
   });
 
-  it('should contain the expected elements on the page for api-docs-with-null', function(done) {
-    sitepage.property('title')
-      .then(function(title) {
-        assert.equal('Swagger UI', title);
-        return sitepage.evaluate(function() {
-          return document.querySelector('.swagger-ui').innerHTML;
-        });
-      })
-      .then(function(html) {
-        assert.ok(html);
-        assert.notEqual(html.indexOf('id="operations-/test-index"'), -1);
-        assert.notEqual(html.indexOf('id="operations-/test-impossible"'), -1);
-        done();
-      })
-      .catch(function(err) {
-        done(err);
-      });
+  it('should contain the expected elements on the page for api-docs-with-null', async function() {
+    await sitepage.waitForSelector('.information-container', { timeout: 2000 });
+    assert.equal('Swagger UI', await sitepage.title());
+    const html = await sitepage.evaluate(() => document.querySelector('.swagger-ui').innerHTML);
+    assert.ok(html);
+    assert.notEqual(html.indexOf("id=\"operations-\\/test-index\""), -1);
+    assert.notEqual(html.indexOf("id=\"operations-\\/test-impossible\""), -1);
   });
 
-  it('should not leak package.json', function(done) {
-    sitepage.open('http://localhost:3001/api-docs/package.json')
-      .then(() => sitepage.evaluate(function () { return document.querySelector('body').innerText }))
-      .then(body => {
-        assert.equal('Not Found', body);
-        done()
-      })
-      .catch(function(err) {
-        done(err);
-      });
+  it('should not leak package.json', async function() {
+    await sitepage.goto('http://localhost:3001/api-docs/package.json');
+    const body = await sitepage.evaluate(() => document.querySelector('body').innerText);
+    assert.equal('Not Found', body);
   });
 });

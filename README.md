@@ -1,4 +1,6 @@
-# Swagger UI Express
+This is a clone of the original repository: https://github.com/scottie1984/swagger-ui-express
+But as the packages are not often updated I am checking in this updated set of packages to help the developer community.
+# Swagger UI Express (Updated packages)
 
 This module allows you to serve auto-generated [swagger-ui](https://swagger.io/tools/swagger-ui/) generated API docs from express, based on a `swagger.json` file. The result is living documentation for your API hosted from your API server via a route.
 
@@ -15,14 +17,14 @@ with jsdoc comments. It then produces a full swagger yml config dynamically, whi
 Install using npm:
 
 ```bash
-$ npm install swagger-ui-express
+$ npm install swagger-ui-express-updated
 ```
 
 Express setup `app.js`
 ```javascript
 const express = require('express');
 const app = express();
-const swaggerUi = require('swagger-ui-express');
+const swaggerUi = require('swagger-ui-express-updated');
 const swaggerDocument = require('./swagger.json');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -32,7 +34,7 @@ or if you are using Express router
 
 ```javascript
 const router = require('express').Router();
-const swaggerUi = require('swagger-ui-express');
+const swaggerUi = require('swagger-ui-express-updated');
 const swaggerDocument = require('./swagger.json');
 
 router.use('/api-docs', swaggerUi.serve);
@@ -61,7 +63,7 @@ By default the Swagger Explorer bar is hidden, to display it pass true as the 'e
 ```javascript
 const express = require('express');
 const app = express();
-const swaggerUi = require('swagger-ui-express');
+const swaggerUi = require('swagger-ui-express-updated');
 const swaggerDocument = require('./swagger.json');
 
 var options = {
@@ -78,7 +80,7 @@ To pass custom options e.g. validatorUrl, to the SwaggerUi client pass an object
 ```javascript
 const express = require('express');
 const app = express();
-const swaggerUi = require('swagger-ui-express');
+const swaggerUi = require('swagger-ui-express-updated');
 const swaggerDocument = require('./swagger.json');
 
 var options = {
@@ -101,7 +103,7 @@ E.g. to hide the swagger header:
 ```javascript
 const express = require('express');
 const app = express();
-const swaggerUi = require('swagger-ui-express');
+const swaggerUi = require('swagger-ui-express-updated');
 const swaggerDocument = require('./swagger.json');
 
 var options = {
@@ -118,7 +120,7 @@ You can also pass the url to a custom css file, the value must be the public url
 ```javascript
 const express = require('express');
 const app = express();
-const swaggerUi = require('swagger-ui-express');
+const swaggerUi = require('swagger-ui-express-updated');
 const swaggerDocument = require('./swagger.json');
 
 var options = {
@@ -135,7 +137,7 @@ If you would like to have full control over your HTML you can provide your own j
 ```javascript
 const express = require('express');
 const app = express();
-const swaggerUi = require('swagger-ui-express');
+const swaggerUi = require('swagger-ui-express-updated');
 const swaggerDocument = require('./swagger.json');
 
 var options = {
@@ -152,7 +154,7 @@ To load your swagger from a url instead of injecting the document, pass `null` a
 ```javascript
 const express = require('express');
 const app = express();
-const swaggerUi = require('swagger-ui-express');
+const swaggerUi = require('swagger-ui-express-updated');
 
 var options = {
   swaggerOptions: {
@@ -168,7 +170,7 @@ To load multiple swagger documents from urls as a dropdown in the explorer bar, 
 ```javascript
 const express = require('express');
 const app = express();
-const swaggerUi = require('swagger-ui-express');
+const swaggerUi = require('swagger-ui-express-updated');
 
 var options = {
   explorer: true,
@@ -201,7 +203,7 @@ To load your swagger specification yaml file you need to use a module able to co
 ```javascript
 const express = require('express');
 const app = express();
-const swaggerUi = require('swagger-ui-express');
+const swaggerUi = require('swagger-ui-express-updated');
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./swagger.yaml');
 
@@ -216,7 +218,7 @@ To dynamically set the host, or any other content, in the swagger file based on 
 ```javascript
 const express = require('express');
 const app = express();
-const swaggerUi = require('swagger-ui-express');
+const swaggerUi = require('swagger-ui-express-updated');
 const swaggerDocument = require('./swagger.json');
 
 app.use('/api-docs', function(req, res, next){
@@ -229,7 +231,7 @@ app.use('/api-docs', function(req, res, next){
 
 ## Requirements
 
-* Node v0.10.32 or above
+* Node 8 or above
 * Express 4 or above
 
 ## Testing
