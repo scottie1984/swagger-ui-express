@@ -1,6 +1,6 @@
 {
   "name": "swagger-ui-express-updated",
-  "version": "4.1.7",
+  "version": "4.1.8",
   "description": "Swagger UI Express: updated packages",
   "main": "./index.js",
   "files": [
@@ -37,14 +37,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:tanmoy-git/swagger-ui-express.git"
+    "url": "git@github.com:tanmoy-git/swagger-ui-express-updated.git"
   },
   "license": "MIT",
   "readmeFilename": "README.md",
   "bugs": {
-    "url": "https://github.com/tanmoy-git/swagger-ui-express/issues"
+    "url": "https://github.com/tanmoy-git/swagger-ui-express-updated/issues"
   },
-  "homepage": "https://github.com/tanmoy-git/swagger-ui-express",
+  "homepage": "https://github.com/tanmoy-git/swagger-ui-express-updated",
   "dependencies": {
     "swagger-ui-dist": "^3.35.2"
   },
