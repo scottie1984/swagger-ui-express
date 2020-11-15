@@ -36,7 +36,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
 router.use('/api-docs', swaggerUi.serve);
-router.get('/api-docs', swaggerUi.setup(swaggerDocument));
+router.use('/api-docs', swaggerUi.setup(swaggerDocument));
 ```
 
 Open http://`<app_host>`:`<app_port>`/api-docs in your browser to view the documentation.
@@ -226,6 +226,27 @@ app.use('/api-docs', function(req, res, next){
 }, swaggerUi.serve, swaggerUi.setup());
 ```
 
+### Upgrading to version 5
+
+Previously you could use app.get for the swaggerUi.setup function e.g.
+
+```javascript
+app.use('/api-docs-using-object', swaggerUi.serve)
+app.get('/api-docs-using-object', swaggerUi.setup(swaggerDocument, swaggerUiOpts));
+```
+
+With version 5 both functions must instead have app.use e.g.
+
+```javascript
+app.use('/api-docs-using-object', swaggerUi.serve)
+app.use('/api-docs-using-object', swaggerUi.setup(swaggerDocument, swaggerUiOpts));
+```
+
+or on 1 line
+
+```javascript
+app.use('/api-docs-using-object', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerUiOpts));
+```
 
 ## Requirements
 
