@@ -226,6 +226,24 @@ app.use('/api-docs', function(req, res, next){
 }, swaggerUi.serve, swaggerUi.setup());
 ```
 
+### Two swagger documents
+
+To run 2 swagger ui instances with different swagger documents, use the serveFiles function instead of the serve function. The serveFiles function has the same signature as the setup function.
+
+```javascript
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocumentOne = require('./swagger-one.json');
+const swaggerDocumentTwo = require('./swagger-one.json');
+
+var options = {}
+
+app.use('/api-docs-one', swaggerUi.serveFiles(swaggerDocumentOne, options), swaggerUi.setup(swaggerDocumentOne));
+
+app.use('/api-docs-two', swaggerUi.serveFiles(swaggerDocumentTwo, options), swaggerUi.setup(swaggerDocumentTwo));
+```
+
 
 ## Requirements
 
