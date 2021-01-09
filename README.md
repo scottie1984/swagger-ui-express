@@ -235,7 +235,7 @@ const express = require('express');
 const app = express();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocumentOne = require('./swagger-one.json');
-const swaggerDocumentTwo = require('./swagger-one.json');
+const swaggerDocumentTwo = require('./swagger-two.json');
 
 var options = {}
 
