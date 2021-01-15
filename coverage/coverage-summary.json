@@ -1,0 +1,3 @@
+{"total": {"lines":{"total":78,"covered":70,"skipped":0,"pct":89.74},"statements":{"total":79,"covered":71,"skipped":0,"pct":89.87},"functions":{"total":12,"covered":11,"skipped":0,"pct":91.67},"branches":{"total":56,"covered":44,"skipped":0,"pct":78.57}}
+,"/Users/henry.steinhauer/Projekte/private_Projekte/swagger-ui-express/index.js": {"lines":{"total":78,"covered":70,"skipped":0,"pct":89.74},"functions":{"total":12,"covered":11,"skipped":0,"pct":91.67},"statements":{"total":79,"covered":71,"skipped":0,"pct":89.87},"branches":{"total":56,"covered":44,"skipped":0,"pct":78.57}}
+}
