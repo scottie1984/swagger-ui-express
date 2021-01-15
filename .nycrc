@@ -1,0 +1,7 @@
+{
+  "reporter": [
+    "lcov",
+    "json-summary"
+  ],
+  "all": true
+}

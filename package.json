@@ -12,6 +12,8 @@
   ],
   "scripts": {
     "test": "./node_modules/.bin/mocha test/*",
+    "coverage:report": "nyc ./node_modules/.bin/mocha test/* || exit 0",
+    "coverage:badge": "npm run coverage:report && istanbul-badges-readme --coverageDir='./coverage'",
     "test-app": "node ./test/testapp/run.js "
   },
   "keywords": [
@@ -28,7 +30,9 @@
   "devDependencies": {
     "es6-shim": "0.35.2",
     "express": "4.12.2",
+    "istanbul-badges-readme": "^1.2.0",
     "mocha": "2.2.5",
+    "nyc": "^15.1.0",
     "phantom": "2.1.21"
   },
   "author": {
