@@ -1,7 +1,5 @@
 # Swagger UI Express
 
-## Coverage
-
 | Statements                  | Branches                | Functions                 | Lines                |
 | --------------------------- | ----------------------- | ------------------------- | -------------------- |
 | ![Statements](https://img.shields.io/badge/Coverage-89.87%25-yellow.svg) | ![Branches](https://img.shields.io/badge/Coverage-78.57%25-red.svg) | ![Functions](https://img.shields.io/badge/Coverage-91.67%25-brightgreen.svg) | ![Lines](https://img.shields.io/badge/Coverage-89.74%25-yellow.svg)    |
