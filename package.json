@@ -13,7 +13,7 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha test/*",
     "coverage:report": "nyc ./node_modules/.bin/mocha test/* || exit 0",
-    "coverage:badge": "npm run coverage:report && istanbul-badges-readme --coverageDir='./coverage'",
+    "coverage:badge": "npm run coverage:report && istanbul-badges-readme --coverageDir=./coverage",
     "test-app": "node ./test/testapp/run.js "
   },
   "keywords": [
@@ -28,12 +28,12 @@
     "node": ">= v0.10.32"
   },
   "devDependencies": {
-    "es6-shim": "0.35.2",
-    "express": "4.12.2",
+    "es6-shim": "0.35.6",
+    "express": "^4.17.1",
     "istanbul-badges-readme": "^1.2.0",
-    "mocha": "2.2.5",
+    "mocha": "^8.3.0",
     "nyc": "^15.1.0",
-    "phantom": "2.1.21"
+    "puppeteer": "^7.1.0"
   },
   "author": {
     "name": "Stephen Scott",
@@ -50,9 +50,9 @@
   },
   "homepage": "https://github.com/scottie1984/swagger-ui-express",
   "dependencies": {
-    "swagger-ui-dist": "^3.18.1"
+    "swagger-ui-dist": "^3.43.0"
   },
   "peerDependencies": {
-    "express": ">=4.0.0"
+    "express": ">=4.17.1"
   }
 }
