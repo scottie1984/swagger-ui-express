@@ -50,7 +50,7 @@
   },
   "homepage": "https://github.com/scottie1984/swagger-ui-express",
   "dependencies": {
-    "swagger-ui-dist": "^3.35.1"
+    "swagger-ui-dist": "^3.43.0"
   },
   "peerDependencies": {
     "express": ">=4.0.0"
