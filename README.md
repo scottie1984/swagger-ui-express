@@ -1,5 +1,9 @@
 # Swagger UI Express
 
+| Statements                  | Branches                | Functions                 | Lines                |
+| --------------------------- | ----------------------- | ------------------------- | -------------------- |
+| ![Statements](https://img.shields.io/badge/Coverage-89.87%25-yellow.svg) | ![Branches](https://img.shields.io/badge/Coverage-78.57%25-red.svg) | ![Functions](https://img.shields.io/badge/Coverage-91.67%25-brightgreen.svg) | ![Lines](https://img.shields.io/badge/Coverage-89.74%25-yellow.svg)    |
+
 This module allows you to serve auto-generated [swagger-ui](https://swagger.io/tools/swagger-ui/) generated API docs from express, based on a `swagger.json` file. The result is living documentation for your API hosted from your API server via a route.
 
 Swagger version is pulled from npm module swagger-ui-dist. Please use a lock file or specify the version of swagger-ui-dist you want to ensure it is consistent across environments.
@@ -224,6 +228,24 @@ app.use('/api-docs', function(req, res, next){
     req.swaggerDoc = swaggerDocument;
     next();
 }, swaggerUi.serve, swaggerUi.setup());
+```
+
+### Two swagger documents
+
+To run 2 swagger ui instances with different swagger documents, use the serveFiles function instead of the serve function. The serveFiles function has the same signature as the setup function.
+
+```javascript
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocumentOne = require('./swagger-one.json');
+const swaggerDocumentTwo = require('./swagger-two.json');
+
+var options = {}
+
+app.use('/api-docs-one', swaggerUi.serveFiles(swaggerDocumentOne, options), swaggerUi.setup(swaggerDocumentOne));
+
+app.use('/api-docs-two', swaggerUi.serveFiles(swaggerDocumentTwo, options), swaggerUi.setup(swaggerDocumentTwo));
 ```
 
 

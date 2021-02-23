@@ -178,12 +178,12 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
 }
 
 var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customSiteTitle) {
+  var html = generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customSiteTitle, htmlTplString, jsTplString)
   return function (req, res) {
     if (req.swaggerDoc) {
       var reqHtml = generateHTML(req.swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customSiteTitle, htmlTplString, jsTplString)
       res.send(reqHtml)
     } else {
-      var html = generateHTML(swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customSiteTitle, htmlTplString, jsTplString)
       res.send(html)
     }
   }

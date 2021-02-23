@@ -1,6 +1,6 @@
 {
   "name": "swagger-ui-express",
-  "version": "4.1.4",
+  "version": "4.1.6",
   "description": "Swagger UI Express",
   "main": "./index.js",
   "files": [
@@ -12,6 +12,8 @@
   ],
   "scripts": {
     "test": "./node_modules/.bin/mocha test/*",
+    "coverage:report": "nyc ./node_modules/.bin/mocha test/* || exit 0",
+    "coverage:badge": "npm run coverage:report && istanbul-badges-readme --coverageDir='./coverage'",
     "test-app": "node ./test/testapp/run.js "
   },
   "keywords": [
@@ -28,7 +30,9 @@
   "devDependencies": {
     "es6-shim": "0.35.6",
     "express": "^4.17.1",
+    "istanbul-badges-readme": "^1.2.0",
     "mocha": "^8.3.0",
+    "nyc": "^15.1.0",
     "puppeteer": "^7.1.0"
   },
   "author": {
