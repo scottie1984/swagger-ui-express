@@ -263,9 +263,8 @@ var options = {
         url: "/api-docs/swagger.json",
     },
 }
-
-app.use('/api-docs', swaggerUi.serveFiles(null, options), swaggerUi.setup(null, options));
 app.get("/api-docs/swagger.json", (req, res) => res.json(swaggerDocument));
+app.use('/api-docs', swaggerUi.serveFiles(null, options), swaggerUi.setup(null, options));
 ```
 
 
