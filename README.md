@@ -248,6 +248,26 @@ app.use('/api-docs-one', swaggerUi.serveFiles(swaggerDocumentOne, options), swag
 app.use('/api-docs-two', swaggerUi.serveFiles(swaggerDocumentTwo, options), swaggerUi.setup(swaggerDocumentTwo));
 ```
 
+### Link to Swagger document
+
+To render a link to the swagger document for downloading within the swagger ui - then serve the swagger doc as an endpoint and use the url option to point to it:
+
+```javascript
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+var options = {
+    swaggerOptions: {
+        url: "/api-docs/swagger.json",
+    },
+}
+
+app.use('/api-docs', swaggerUi.serveFiles(null, options), swaggerUi.setup(null, options));
+app.get("/api-docs/swagger.json", (req, res) => res.json(swaggerDocument));
+```
+
 
 ## Requirements
 
