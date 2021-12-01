@@ -15,7 +15,6 @@ var htmlTplString = `
   <title><% title %></title>
   <link rel="stylesheet" type="text/css" href="./swagger-ui.css" >
   <% favIconString %>
-  <% customJs %>
   <style>
     html
     {
@@ -78,6 +77,7 @@ var htmlTplString = `
 <script src="./swagger-ui-bundle.js"> </script>
 <script src="./swagger-ui-standalone-preset.js"> </script>
 <script src="./swagger-ui-init.js"> </script>
+<% customJs %>
 <% customCssUrl %>
 <style>
   <% customCss %>

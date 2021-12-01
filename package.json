@@ -1,6 +1,6 @@
 {
   "name": "swagger-ui-express",
-  "version": "4.1.6",
+  "version": "4.2.0",
   "description": "Swagger UI Express",
   "main": "./index.js",
   "files": [
@@ -33,7 +33,7 @@
     "istanbul-badges-readme": "^1.2.0",
     "mocha": "2.2.5",
     "nyc": "^15.1.0",
-    "phantom": "2.1.21"
+    "puppeteer": "5.3.1"
   },
   "author": {
     "name": "Stephen Scott",
@@ -50,7 +50,7 @@
   },
   "homepage": "https://github.com/scottie1984/swagger-ui-express",
   "dependencies": {
-    "swagger-ui-dist": "^3.52.5"
+    "swagger-ui-dist": ">3.52.5"
   },
   "peerDependencies": {
     "express": ">=4.0.0"

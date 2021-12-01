@@ -47,6 +47,8 @@ app.get('/bar', function(req, res) { res.json({ status: 'OKISH'}); });
 app.use('/api-docs', swaggerUi.serve)
 app.get('/api-docs', swaggerUi.setup(swaggerDocument, false, options, '.swagger-ui .topbar { background-color: red }'));
 
+app.use('/api-docs-one', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false, options, '.swagger-ui .topbar { background-color: red }'))
+
 app.use('/api-docs-from-url', swaggerUi.serve)
 app.get('/api-docs-from-url', swaggerUi.setup(null, false, options, '.swagger-ui .topbar { background-color: red }', null, '/swagger.json'));
 
@@ -81,7 +83,7 @@ app.get('/api-docs-with-null', swaggerUi.setup(swaggerDocument, null, options, '
 app.use('/api-docs-split', swaggerUi.serve)
 app.get('/api-docs-split', swaggerUi.setup(swaggerDocumentSplit, null, options, '.swagger-ui .topbar { background-color: orange }'));
 
-app.use('/api-docs-with-opts/', swaggerUi.serveWithOptions({ redirect: false }))
+app.use('/api-docs-with-opts/', swaggerUi.serveWithOptions({ redirect: false, cacheControl: false }))
 app.get('/api-docs-with-opts/', swaggerUi.setup(swaggerDocumentSplit, null, options, '.swagger-ui .topbar { background-color: orange }'));
 
 var swaggerHtml = swaggerUi.generateHTML(swaggerDocument, swaggerUiOpts)
