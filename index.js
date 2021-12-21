@@ -6,6 +6,10 @@ var favIconHtml = '<link rel="icon" type="image/png" href="./favicon-32x32.png" 
   '<link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />'
 var swaggerInit = ''
 
+function trimQuery(q) {
+  return q.split('?')[0]
+}
+
 var htmlTplString = `
 <!-- HTML for static distribution bundle build -->
 <!DOCTYPE html>
@@ -190,9 +194,9 @@ var setup = function (swaggerDoc, opts, options, customCss, customfavIcon, swagg
 }
 
 function swaggerInitFn(req, res, next) {
-  if (req.url === '/package.json') {
+  if (trimQuery(req.url) === '/package.json') {
     res.sendStatus(404)
-  } else if (req.url === '/swagger-ui-init.js') {
+  } else if (trimQuery(req.url) === '/swagger-ui-init.js') {
     res.set('Content-Type', 'application/javascript')
     res.send(swaggerInit)
   } else {
@@ -203,9 +207,9 @@ function swaggerInitFn(req, res, next) {
 var swaggerInitFunction = function (swaggerDoc, opts) {
   var swaggerInitFile = jsTplString.toString().replace('<% swaggerOptions %>', stringify(opts))
   return function (req, res, next) {
-    if (req.url === '/package.json') {
+    if (trimQuery(req.url) === '/package.json') {
       res.sendStatus(404)
-    } else if (req.url === '/swagger-ui-init.js') {
+    } else if (trimQuery(req.url) === '/swagger-ui-init.js') {
       res.set('Content-Type', 'application/javascript')
       res.send(swaggerInitFile)
     } else {
