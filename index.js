@@ -82,6 +82,7 @@ var htmlTplString = `
 <script src="./swagger-ui-standalone-preset.js"> </script>
 <script src="./swagger-ui-init.js"> </script>
 <% customJs %>
+<% customJsStr %>
 <% customCssUrl %>
 <style>
   <% customCss %>
@@ -140,12 +141,14 @@ window.onload = function() {
 var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customSiteTitle, _htmlTplString, _jsTplString) {
   var isExplorer
   var customJs
+  var customJsStr
   var swaggerUrls
   var customCssUrl
   if (opts && typeof opts === 'object') {
     options = opts.swaggerOptions
     customCss = opts.customCss
     customJs = opts.customJs
+    customJsStr = opts.customJsStr
     customfavIcon = opts.customfavIcon
     swaggerUrl = opts.swaggerUrl
     swaggerUrls = opts.swaggerUrls
@@ -167,7 +170,8 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
   var favIconString = customfavIcon ? '<link rel="icon" href="' + customfavIcon + '" />' : favIconHtml
   var htmlWithCustomCss = _htmlTplString.toString().replace('<% customCss %>', customCss)
   var htmlWithFavIcon = htmlWithCustomCss.replace('<% favIconString %>', favIconString)
-  var htmlWithCustomJs = htmlWithFavIcon.replace('<% customJs %>', customJs ? `<script src="${customJs}"></script>` : '')
+  var htmlWithCustomJsUrl = htmlWithFavIcon.replace('<% customJs %>', customJs ? `<script src="${customJs}"></script>` : '')
+  var htmlWithCustomJs = htmlWithCustomJsUrl.replace('<% customJsStr %>', customJsStr ? `<script>${customJsStr}</script>` : '')
   var htmlWithCustomCssUrl = htmlWithCustomJs.replace('<% customCssUrl %>', customCssUrl ? `<link href="${customCssUrl}" rel="stylesheet">` : '')
 
   var initOptions = {
@@ -210,6 +214,9 @@ var swaggerInitFunction = function (swaggerDoc, opts) {
     if (trimQuery(req.url) === '/package.json') {
       res.sendStatus(404)
     } else if (trimQuery(req.url) === '/swagger-ui-init.js') {
+      if (req.swaggerDoc) {
+        swaggerInitFile = jsTplString.toString().replace('<% swaggerOptions %>', stringify(opts))
+      }
       res.set('Content-Type', 'application/javascript')
       res.send(swaggerInitFile)
     } else {

@@ -223,11 +223,13 @@ const app = express();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
+var options = {}
+
 app.use('/api-docs', function(req, res, next){
     swaggerDocument.host = req.get('host');
     req.swaggerDoc = swaggerDocument;
     next();
-}, swaggerUi.serve, swaggerUi.setup());
+}, swaggerUi.serveFiles(swaggerDocument, options), swaggerUi.setup());
 ```
 
 ### Two swagger documents
