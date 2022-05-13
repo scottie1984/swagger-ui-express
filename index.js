@@ -7,7 +7,7 @@ var favIconHtml = '<link rel="icon" type="image/png" href="./favicon-32x32.png" 
 var swaggerInit = ''
 
 function trimQuery(q) {
-  return q.split('?')[0]
+  return q && q.split('?')[0]
 }
 
 var htmlTplString = `
