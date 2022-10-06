@@ -37,7 +37,13 @@ var options = {
 	 return score[a.get("path")] < score[b.get("path")]
  }
 };
-
+app.get('/examples', function (req,res){
+	const urls = []
+	for (register of (app._router.stack)){
+		register.route?.path?urls.push(register.route.path):''
+	}
+	res.json({urls});
+})
 app.post('/test', function(req, res) {
 	console.log('req', req)
 	res.json({ status: 'OK'});
