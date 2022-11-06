@@ -138,6 +138,28 @@ window.onload = function() {
 }
 `
 
+function toExternalScriptTag(url) {
+  return `<script src='${url}'></script>`
+}
+
+function toInlineScriptTag(jsCode) {
+  return `<script>${jsCode}</script>`
+}
+
+function toExternalStylesheetTag(url) {
+  return `<link href='${url}' rel='stylesheet'>`
+}
+
+function toTags(customCode, toScript) {
+  if (typeof customCode === 'string') {
+    return toScript(customCode)
+  } else if (Array.isArray(customCode)) {
+    return customCode.map(toScript).join('\n')
+  } else {
+    return ''
+  }
+}
+
 var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon, swaggerUrl, customSiteTitle, _htmlTplString, _jsTplString) {
   var isExplorer
   var customJs
@@ -170,9 +192,9 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
   var favIconString = customfavIcon ? '<link rel="icon" href="' + customfavIcon + '" />' : favIconHtml
   var htmlWithCustomCss = _htmlTplString.toString().replace('<% customCss %>', customCss)
   var htmlWithFavIcon = htmlWithCustomCss.replace('<% favIconString %>', favIconString)
-  var htmlWithCustomJsUrl = htmlWithFavIcon.replace('<% customJs %>', customJs ? `<script src="${customJs}"></script>` : '')
-  var htmlWithCustomJs = htmlWithCustomJsUrl.replace('<% customJsStr %>', customJsStr ? `<script>${customJsStr}</script>` : '')
-  var htmlWithCustomCssUrl = htmlWithCustomJs.replace('<% customCssUrl %>', customCssUrl ? `<link href="${customCssUrl}" rel="stylesheet">` : '')
+  var htmlWithCustomJsUrl = htmlWithFavIcon.replace('<% customJs %>', toTags(customJs, toExternalScriptTag))
+  var htmlWithCustomJs = htmlWithCustomJsUrl.replace('<% customJsStr %>', toTags(customJsStr, toInlineScriptTag))
+  var htmlWithCustomCssUrl = htmlWithCustomJs.replace('<% customCssUrl %>', toTags(customCssUrl, toExternalStylesheetTag))
 
   var initOptions = {
     swaggerDoc: swaggerDoc || undefined,
