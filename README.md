@@ -132,6 +132,24 @@ var options = {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 ```
 
+You can also pass an array of css urls to load multiple css files.
+
+```javascript
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+var options = {
+  customCssUrl: [
+    '/custom.css',
+    'https://example.com/other-custom.css'
+  ]
+};
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+```
+
 ### Custom JS
 
 If you would like to have full control over your HTML you can provide your own javascript file, value accepts absolute or relative path. Value must be the public url of the js file.
@@ -144,6 +162,58 @@ const swaggerDocument = require('./swagger.json');
 
 var options = {
   customJs: '/custom.js'
+};
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+```
+
+You can also pass an array of js urls to load multiple js files.
+
+```javascript
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+var options = {
+  customJs: [
+    '/custom.js',
+    'https://example.com/other-custom.js'
+  ]
+};
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+```
+
+It is also possible to add inline javascript, either as string or array of string.
+
+```javascript
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+var options = {
+  customJsStr: 'console.log("Hello World")'
+};
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+```
+
+```javascript
+const express = require('express');
+const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+var options = {
+  customJsStr: [
+    'console.log("Hello World")',
+    `
+    var x = 1
+    console.log(x)
+    `
+  ]
 };
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
