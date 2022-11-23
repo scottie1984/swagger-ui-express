@@ -130,6 +130,14 @@ window.onload = function() {
     ui.initOAuth(customOptions.oauth)
   }
 
+  if (customOptions.preauthorizeApiKey) {
+    const key = customOptions.preauthorizeApiKey.authDefinitionKey;
+    const value = customOptions.preauthorizeApiKey.apiKeyValue;
+    if (!!key && !!value) {
+      ui.preauthorizeBasic(key, value);
+    }
+  }
+
   if (customOptions.authAction) {
     ui.authActions.authorize(customOptions.authAction)
   }
