@@ -134,7 +134,11 @@ window.onload = function() {
     const key = customOptions.preauthorizeApiKey.authDefinitionKey;
     const value = customOptions.preauthorizeApiKey.apiKeyValue;
     if (!!key && !!value) {
-      ui.preauthorizeBasic(key, value);
+      const pid = setInterval(() => {
+        const authorized = ui.preauthorizeApiKey(key, value);
+        if(!!authorized) clearInterval(pid);
+      }, 500)
+      
     }
   }
 
