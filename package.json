@@ -29,9 +29,9 @@
   },
   "devDependencies": {
     "es6-shim": "0.35.2",
-    "express": "4.12.2",
+    "express": "^4.18.2",
     "istanbul-badges-readme": "^1.2.0",
-    "mocha": "2.2.5",
+    "mocha": "^10.2.0",
     "nyc": "^15.1.0",
     "puppeteer": "5.3.1"
   },

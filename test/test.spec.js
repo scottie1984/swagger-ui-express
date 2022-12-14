@@ -51,7 +51,6 @@ describe('integration', function() {
     assert.equal('Swagger UI', await sitepage.title());
     const html = await sitepage.evaluate(() => document.querySelector('.swagger-ui').innerHTML);
     assert.ok(html);
-// console.log(`**** ${html}`);
     assert.notEqual(html.indexOf("id=\"operations-\\/test-index\""), -1);
     assert.notEqual(html.indexOf("id=\"operations-\\/test-impossible\""), -1);
   });
@@ -59,6 +58,13 @@ describe('integration', function() {
   it('should have API Documentation hosted at /api-docs-using-object', async function() {
     const httpResponse = await sitepage.goto('http://localhost:3001/api-docs-using-object/');
     assert.ok(httpResponse.ok());
+  });
+
+  it('should have preauthorized api key', async function() {
+    await sitepage.waitForSelector('.auth-wrapper > .btn.authorize.locked', { timeout: 0 });
+    const classes = await sitepage.evaluate(() => Array.from(document.querySelector('.auth-wrapper > .btn.authorize.locked').classList));
+    assert(classes.includes('locked'));
+    assert(!classes.includes('unlocked'));
   });
 
   it('should contain the expected elements on the page for api-docs-using-object', async function() {
@@ -89,4 +95,29 @@ describe('integration', function() {
     const body = await sitepage.evaluate(() => document.querySelector('body').innerText);
     assert.equal('Not Found', body);
   });
+
+  it('should should have API Documentation hosted at /api-docs-with-url-in-swaggerOptions', async function() {
+    const httpResponse = await sitepage.goto('http://localhost:3001/api-docs-with-url-in-swaggerOptions/');
+    assert.ok(httpResponse.ok());
+  });
+
+  it('should not have preauthorized api key', async function() {
+    await sitepage.waitForSelector('.auth-wrapper > .btn.authorize.unlocked', { timeout: 0 });
+    const classes = await sitepage.evaluate(() => Array.from(document.querySelector('.auth-wrapper > .btn.authorize.unlocked').classList));
+    assert(!classes.includes('locked'));
+    assert(classes.includes('unlocked'));
+  });
+
+  it('should should have API Documentation hosted at /api-docs-with-url-in-swaggerOptions-preauthorized', async function() {
+    const httpResponse = await sitepage.goto('http://localhost:3001/api-docs-with-url-in-swaggerOptions-preauthorized/');
+    assert.ok(httpResponse.ok());
+  });
+
+  it('should have preauthorized api key', async function() {
+    await sitepage.waitForSelector('.auth-wrapper > .btn.authorize.locked', { timeout: 0 });
+    const classes = await sitepage.evaluate(() => Array.from(document.querySelector('.auth-wrapper > .btn.authorize.locked').classList));
+    assert(classes.includes('locked'));
+    assert(!classes.includes('unlocked'));
+  });
+
 });
