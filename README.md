@@ -270,7 +270,7 @@ Make sure 'explorer' option is set to 'true' in your setup options for the dropd
 
 To load your swagger specification yaml file you need to use a module able to convert yaml to json; for instance `yaml`.
 
-    npm i yaml
+    npm install yaml
 
 ```javascript
 const express = require('express');
