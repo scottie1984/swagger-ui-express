@@ -268,16 +268,19 @@ Make sure 'explorer' option is set to 'true' in your setup options for the dropd
 
 ### Load swagger from yaml file
 
-To load your swagger specification yaml file you need to use a module able to convert yaml to json; for instance `yamljs`.
+To load your swagger specification yaml file you need to use a module able to convert yaml to json; for instance `yaml`.
 
-    npm install --save yamljs
+    npm install yaml
 
 ```javascript
 const express = require('express');
 const app = express();
 const swaggerUi = require('swagger-ui-express');
-const YAML = require('yamljs');
-const swaggerDocument = YAML.load('./swagger.yaml');
+const fs = require("fs")
+const YAML = require('yaml')
+
+const file  = fs.readFileSync('./swagger.yaml', 'utf8')
+const swaggerDocument = YAML.parse(file)
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 ```
