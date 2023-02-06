@@ -16,6 +16,7 @@ var htmlTplString = `
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <% robotsMetaString %>
   <title><% title %></title>
   <link rel="stylesheet" type="text/css" href="./swagger-ui.css" >
   <% favIconString %>
@@ -166,12 +167,14 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
   var customJsStr
   var swaggerUrls
   var customCssUrl
+  var customRobots
   if (opts && typeof opts === 'object') {
     options = opts.swaggerOptions
     customCss = opts.customCss
     customJs = opts.customJs
     customJsStr = opts.customJsStr
     customfavIcon = opts.customfavIcon
+    customRobots = opts.customRobots
     swaggerUrl = opts.swaggerUrl
     swaggerUrls = opts.swaggerUrls
     isExplorer = opts.explorer || !!swaggerUrls
@@ -189,9 +192,11 @@ var generateHTML = function (swaggerDoc, opts, options, customCss, customfavIcon
   _htmlTplString = _htmlTplString || htmlTplString
   _jsTplString = _jsTplString || jsTplString
 
+  var robotsMetaString = customRobots ? '<meta name="robots" content="' + customRobots + '" />' : ''
   var favIconString = customfavIcon ? '<link rel="icon" href="' + customfavIcon + '" />' : favIconHtml
   var htmlWithCustomCss = _htmlTplString.toString().replace('<% customCss %>', customCss)
-  var htmlWithFavIcon = htmlWithCustomCss.replace('<% favIconString %>', favIconString)
+  var htmlWithCustomRobots = htmlWithCustomCss.replace('<% robotsMetaString %>', robotsMetaString)
+  var htmlWithFavIcon = htmlWithCustomRobots.replace('<% favIconString %>', favIconString)
   var htmlWithCustomJsUrl = htmlWithFavIcon.replace('<% customJs %>', toTags(customJs, toExternalScriptTag))
   var htmlWithCustomJs = htmlWithCustomJsUrl.replace('<% customJsStr %>', toTags(customJsStr, toInlineScriptTag))
   var htmlWithCustomCssUrl = htmlWithCustomJs.replace('<% customCssUrl %>', toTags(customCssUrl, toExternalStylesheetTag))
