@@ -18,6 +18,10 @@ app.use((req, res, next) => {
 });
 
 var options = {
+	preauthorizeApiKey: {
+	 authDefinitionKey: 'api_key',
+	 apiKeyValue: 'Bearer XYZ'
+	},
 	validatorUrl : null,
 	oauth: {
 	 clientId: "your-client-id1",
@@ -117,8 +121,32 @@ app.get('/api-docs-jsstr', swaggerUi.setup(null, swaggerUiOpts3));
 //     next();
 // }, swaggerUi.serveFiles(swaggerDocument, options), swaggerUi.setup());
 
+var swaggerUiOpts4 = {
+	swaggerOptions: {
+		url: 'http://localhost:' + (app.get('port') || 3001) + '/swagger.json'
+	}
+}
+
+app.use('/api-docs-with-url-in-swaggerOptions', swaggerUi.serve)
+app.get('/api-docs-with-url-in-swaggerOptions', swaggerUi.setup(null, swaggerUiOpts4));
+
+
+var swaggerUiOpts5 = {
+	swaggerOptions: {
+		url: 'http://localhost:' + (app.get('port') || 3001) + '/swagger.json',
+		preauthorizeApiKey: {
+			authDefinitionKey: 'api_key',
+			apiKeyValue: 'Bearer XYZ'
+		   }
+	}
+}
+
+app.use('/api-docs-with-url-in-swaggerOptions-preauthorized', swaggerUi.serve)
+app.get('/api-docs-with-url-in-swaggerOptions-preauthorized', swaggerUi.setup(null, swaggerUiOpts5));
+
+
 app.use(function(req, res) {
-    res.send(404, 'Page not found');
+    res.status(404).send('Page not found');
 });
 
 module.exports = app;

@@ -131,6 +131,18 @@ window.onload = function() {
     ui.initOAuth(customOptions.oauth)
   }
 
+  if (customOptions.preauthorizeApiKey) {
+    const key = customOptions.preauthorizeApiKey.authDefinitionKey;
+    const value = customOptions.preauthorizeApiKey.apiKeyValue;
+    if (!!key && !!value) {
+      const pid = setInterval(() => {
+        const authorized = ui.preauthorizeApiKey(key, value);
+        if(!!authorized) clearInterval(pid);
+      }, 500)
+      
+    }
+  }
+
   if (customOptions.authAction) {
     ui.authActions.authorize(customOptions.authAction)
   }
