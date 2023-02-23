@@ -11,7 +11,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "./node_modules/.bin/mocha test/*",
+    "test": "./node_modules/.bin/mocha test/*.spec.js",
     "coverage:report": "nyc ./node_modules/.bin/mocha test/* || exit 0",
     "coverage:badge": "npm run coverage:report && istanbul-badges-readme --coverageDir='./coverage'",
     "test-app": "node ./test/testapp/run.js "
