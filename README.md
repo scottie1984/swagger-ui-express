@@ -321,6 +321,11 @@ var options = {}
 app.use('/api-docs-one', swaggerUi.serveFiles(swaggerDocumentOne, options), swaggerUi.setup(swaggerDocumentOne));
 
 app.use('/api-docs-two', swaggerUi.serveFiles(swaggerDocumentTwo, options), swaggerUi.setup(swaggerDocumentTwo));
+
+app.use('/api-docs-dynamic', function(req, res, next){
+  req.swaggerDoc = swaggerDocument;
+  next();
+}, swaggerUi.serveFiles(), swaggerUi.setup());
 ```
 
 ### Link to Swagger document
