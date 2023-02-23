@@ -139,7 +139,7 @@ window.onload = function() {
         const authorized = ui.preauthorizeApiKey(key, value);
         if(!!authorized) clearInterval(pid);
       }, 500)
-      
+
     }
   }
 
@@ -254,6 +254,7 @@ var swaggerInitFunction = function (swaggerDoc, opts) {
       res.sendStatus(404)
     } else if (trimQuery(req.url).endsWith('/swagger-ui-init.js')) {
       if (req.swaggerDoc) {
+        opts.swaggerDoc = req.swaggerDoc
         swaggerInitFile = jsTplString.toString().replace('<% swaggerOptions %>', stringify(opts))
       }
       res.set('Content-Type', 'application/javascript')
