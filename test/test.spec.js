@@ -120,4 +120,13 @@ describe('integration', function() {
     assert(!classes.includes('unlocked'));
   });
 
+  it('should have API Documentation hosted at /api-docs-dynamic', async function() {
+    const httpResponse = await sitepage.goto('http://localhost:3001/api-docs-dynamic/');
+    assert.ok(httpResponse.ok());
+    const html = await sitepage.evaluate(() => document.querySelector('.swagger-ui').innerHTML);
+    assert.ok(html);
+    console.log(html);
+    assert.match(html, /Hello [\d]+/);
+  });
+
 });

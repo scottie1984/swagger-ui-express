@@ -101,6 +101,14 @@ var swaggerHtml = swaggerUi.generateHTML(swaggerDocument, swaggerUiOpts)
 app.use('/api-docs-html1', swaggerUi.serveFiles(swaggerDocument, swaggerUiOpts))
 app.get('/api-docs-html1', (req, res) => { res.send(swaggerHtml) });
 
+let count = 0
+app.use('/api-docs-dynamic', function(req, res, next){
+    count = count + 1
+    swaggerDocument.info.description = `Hello ${count}!`;
+    req.swaggerDoc = swaggerDocument;
+    next();
+}, swaggerUi.serveFiles(), swaggerUi.setup());
+
 var swaggerUiOpts3 = {
 	explorer: false,
 	swaggerOptions: options,
@@ -112,14 +120,6 @@ var swaggerUiOpts3 = {
 
 app.use('/api-docs-jsstr', swaggerUi.serve)
 app.get('/api-docs-jsstr', swaggerUi.setup(null, swaggerUiOpts3));
-
-// let count = 0
-// app.use('/api-docs-dynamic', function(req, res, next){
-// 	count = count + 1
-//     swaggerDocument.info.description = `Hello ${count}!`;
-//     req.swaggerDoc = swaggerDocument;
-//     next();
-// }, swaggerUi.serveFiles(swaggerDocument, options), swaggerUi.setup());
 
 var swaggerUiOpts4 = {
 	swaggerOptions: {
