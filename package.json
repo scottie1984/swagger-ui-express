@@ -53,6 +53,6 @@
     "swagger-ui-dist": ">=4.11.0"
   },
   "peerDependencies": {
-    "express": ">=4.0.0"
+    "express": ">=4.0.0 || >=5.0.0-beta"
   }
 }
