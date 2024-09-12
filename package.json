@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "es6-shim": "0.35.8",
-    "express": "^4.19.2",
+    "express": "^4.21.0",
     "istanbul-badges-readme": "^1.9.0",
     "mocha": "^10.4.0",
     "nyc": "^15.1.0",
