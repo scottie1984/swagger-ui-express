@@ -41,7 +41,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:scottie1984/swagger-ui-express.git"
+    "url": "git+https://github.com/scottie1984/swagger-ui-express.git"
   },
   "license": "MIT",
   "readmeFilename": "README.md",
